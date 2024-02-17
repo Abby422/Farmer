@@ -10,15 +10,19 @@ function createData(time, amount) {
 }
 
 const data = [
-  createData("00:00", 0),
-  createData("03:00", 300),
-  createData("06:00", 600),
-  createData("09:00", 800),
-  createData("12:00", 1500),
-  createData("15:00", 2000),
-  createData("18:00", 2400),
-  createData("21:00", 2400),
-  createData("24:00"),
+  createData("JAN", 0),
+  createData("FEB", 300),
+  createData("MAR", 600),
+  createData("APR", 800),
+  createData("MAY", 1500),
+  createData("JUN", 2000),
+  createData("JUL", 2400),
+  createData("AUG", 2400),
+  createData("SEP", 2400),
+  createData("OCT", 2400),
+  createData("NOV", 2400),
+  createData("DEC", 2400),
+
 ];
 
 export default function Chart() {
@@ -26,7 +30,7 @@ export default function Chart() {
 
   return (
     <React.Fragment>
-      <Title color="#1a1c18">Today</Title>
+      <Title color="#1a1c18">Expenditure</Title>
       <div style={{ width: "100%", flexGrow: 1, overflow: "hidden" }}>
         <LineChart
           dataset={data}
