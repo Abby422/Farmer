@@ -60,24 +60,7 @@ export const MainListItems = () => {
         </ListItemIcon>
         <ListItemText primary="Inventory Tracking" />
       </ListItemButton>
-      <ListItemButton
-        selected={selectedIndex === 0}
-        onClick={(e) => handleListItemClick(e, 0)}
-      >
-        <ListItemIcon>
-          <BarChartIcon />
-        </ListItemIcon>
-        <ListItemText primary="Reports" />
-      </ListItemButton>
-      <ListItemButton
-        selected={selectedIndex === 0}
-        onClick={(e) => handleListItemClick(e, 0)}
-      >
-        <ListItemIcon>
-          <InsightsIcon />
-        </ListItemIcon>
-        <ListItemText primary="Insights" />
-      </ListItemButton>
+      
     </>
   );
 };
