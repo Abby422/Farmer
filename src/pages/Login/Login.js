@@ -10,6 +10,8 @@ import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
+import Grid from "@mui/material/Grid";
+import { Link as RouterLink } from "react-router-dom";
 
 
 const defaultTheme = createTheme({
@@ -118,11 +120,22 @@ export default function Login() {
               type="submit"
               fullWidth
               variant="contained"
-              sx={{ mt: 3, mb: 2, bgcolor: "#296c00",  }}
+              sx={{ mt: 3, mb: 2, bgcolor: "#296c00", color: "white" }}
             >
               Sign In
             </Button>
           </Box>
+          <Grid container justifyContent="flex-end">
+            <Grid item>
+              <RouterLink
+                to={"/register"}
+                variant="body2"
+                sx={{ color: "#8c5000" }}
+              >
+                Create Account? Register
+              </RouterLink>
+            </Grid>
+          </Grid>
         </Box>
       </Container>
     </ThemeProvider>
