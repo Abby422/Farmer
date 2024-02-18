@@ -12,7 +12,48 @@ import Container from "@mui/material/Container";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 
 
-const defaultTheme = createTheme();
+const defaultTheme = createTheme({
+  palette: {
+    primary: {
+      main: "#93fb5f",
+    },
+    secondary: {
+      main: "#296c00",
+    },
+  },
+  components: {
+        MuiButton: {
+      styleOverrides: {
+        root: {
+          textTransform: "none",
+        },
+      },
+    },
+    MuiTextField: {
+      styleOverrides: {
+        root: {
+          "& label.Mui-focused": {
+            color: "#072100",
+          },
+          "& .MuiInput-underline:after": {
+            borderBottomColor: "#93fb5f",
+          },
+          "& .MuiOutlinedInput-root": {
+            "& fieldset": {
+              borderColor: "#93fb5f",
+            },
+            "&:hover fieldset": {
+              borderColor: "#93fb5f",
+            },
+            "&.Mui-focused fieldset": {
+              borderColor: "#93fb5f",
+            },
+          },
+        },
+      },
+    },
+  }
+});
 
 export default function Register() {
   const handleSubmit = (event) => {
@@ -36,7 +77,7 @@ export default function Register() {
             alignItems: "center",
           }}
         >
-          <Avatar sx={{ m: 1, bgcolor: "secondary.main" }}>
+          <Avatar sx={{ m: 1, bgcolor: "primary.main" }}>
             <LockOutlinedIcon />
           </Avatar>
           <Typography component="h1" variant="h5">
@@ -96,14 +137,18 @@ export default function Register() {
               type="submit"
               fullWidth
               variant="contained"
-              sx={{ mt: 3, mb: 2 }}
+              sx={{ mt: 3, mb: 2, bgcolor: "#296c00" }}
             >
               Sign Up
             </Button>
             <Grid container justifyContent="flex-end">
               <Grid item>
-                <RouterLink to={"/login"} variant="body2">
-                    Already have an account? Sign in
+                <RouterLink
+                  to={"/login"}
+                  variant="body2"
+                  sx={{ color: "#8c5000" }}
+                >
+                  Already have an account? Sign in
                 </RouterLink>
               </Grid>
             </Grid>

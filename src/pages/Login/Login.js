@@ -12,7 +12,48 @@ import Container from "@mui/material/Container";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 
 
-const defaultTheme = createTheme();
+const defaultTheme = createTheme({
+  palette: {
+    primary: {
+      main: "#93fb5f",
+    },
+    secondary: {
+      main: "#296c00",
+    },
+  },
+  components: {
+    MuiButton: {
+      styleOverrides: {
+        root: {
+          textTransform: "none",
+        },
+      },
+    },
+    MuiTextField: {
+      styleOverrides: {
+        root: {
+          "& label.Mui-focused": {
+            color: "#072100",
+          },
+          "& .MuiInput-underline:after": {
+            borderBottomColor: "#93fb5f",
+          },
+          "& .MuiOutlinedInput-root": {
+            "& fieldset": {
+              borderColor: "#93fb5f",
+            },
+            "&:hover fieldset": {
+              borderColor: "#93fb5f",
+            },
+            "&.Mui-focused fieldset": {
+              borderColor: "#93fb5f",
+            },
+          },
+        },
+      },
+    },
+  },
+});
 
 export default function Login() {
   const handleSubmit = (event) => {
@@ -36,7 +77,7 @@ export default function Login() {
             alignItems: "center",
           }}
         >
-          <Avatar sx={{ m: 1, bgcolor: "secondary.main" }}>
+          <Avatar sx={{ m: 1, bgcolor: "#93fb5f" }}>
             <LockOutlinedIcon />
           </Avatar>
           <Typography component="h1" variant="h5">
@@ -66,6 +107,7 @@ export default function Login() {
               label="Password"
               type="password"
               id="password"
+              color="secondary"
               autoComplete="current-password"
             />
             <FormControlLabel
@@ -76,11 +118,10 @@ export default function Login() {
               type="submit"
               fullWidth
               variant="contained"
-              sx={{ mt: 3, mb: 2 }}
+              sx={{ mt: 3, mb: 2, bgcolor: "#296c00",  }}
             >
               Sign In
             </Button>
-            
           </Box>
         </Box>
       </Container>
