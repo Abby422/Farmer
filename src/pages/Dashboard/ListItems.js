@@ -9,12 +9,16 @@ import InventoryIcon from "@mui/icons-material/Inventory";
 import InsightsIcon from "@mui/icons-material/Insights";
 import BarChartIcon from "@mui/icons-material/BarChart";
 import { Link } from "react-router-dom";
+import { useTheme } from "@emotion/react";
 
 export const MainListItems = () => {
+  const theme = useTheme();
   const [selectedIndex, setSelectedIndex] = React.useState(1);
+  const [color, setColor] = React.useState("");
 
   const handleListItemClick = (event, index) => {
     setSelectedIndex(index);
+    setColor("#8c5000");
   };
 
   
@@ -24,6 +28,7 @@ export const MainListItems = () => {
         component={Link}
         to="/"
         selected={selectedIndex === 0}
+        color={color}
         onClick={(e) => handleListItemClick(e, 0)}
       >
         <ListItemIcon>
