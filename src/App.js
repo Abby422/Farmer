@@ -2,7 +2,7 @@ import React from "react";
 import { Route, Routes } from "react-router-dom";
 import Dashboard from "./pages/Dashboard/Dashboard";
 import { ThemeProvider } from "@emotion/react";
-import { Box, CssBaseline, createTheme } from "@mui/material";
+import { Box, CssBaseline } from "@mui/material";
 import TopBar from "./Components/TopBar";
 import CropMonitoring from "./pages/Crops/CropMonitoring";
 import Login from "./pages/Login/Login";
@@ -10,11 +10,11 @@ import Register from "./pages/Register/Register";
 import ViewCrops from "./pages/Crops/ViewCrops";
 import Inventory from "./pages/Inventory/Inventory";
 import LivestockInventory from "./pages/Inventory/LivestockInventory";
-
-const defaultTheme = createTheme();
+import ViewInventory from "./pages/Inventory/ViewInventory";
+import theme from './theme';
 
 const DashboardLayout = ({ children }) => (
-  <ThemeProvider theme={defaultTheme}>
+  <ThemeProvider theme={theme}>
     <Box sx={{ display: "flex" }}>
       <TopBar />
       <CssBaseline />
@@ -25,7 +25,7 @@ const DashboardLayout = ({ children }) => (
 
 // Layout component without top bar
 const AuthLayout = ({ children }) => (
-  <ThemeProvider theme={defaultTheme}>
+  <ThemeProvider theme={theme}>
     <Box sx={{ display: "flex" }}>
       <CssBaseline />
       {children}
@@ -68,6 +68,14 @@ function App() {
           </DashboardLayout>
         }
       />
+      <Route
+        path="/viewInventory"
+        element={
+          <DashboardLayout>
+            <ViewInventory />
+          </DashboardLayout>
+        }
+        />
       <Route
         path="/addLivestock"
         element={

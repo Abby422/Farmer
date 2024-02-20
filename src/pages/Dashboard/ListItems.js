@@ -15,11 +15,15 @@ export const MainListItems = () => {
   const [color, setColor] = React.useState("");
 
   const [open, setOpen] = React.useState(true);
+  const [openInventory, setOpenInventory] = React.useState(true);
 
   const handleClick = () => {
     setOpen(!open);
   };
 
+  const handleInventoryClick = () => {
+    setOpenInventory(!openInventory);
+  }
   const handleListItemClick = (event, index) => {
     setSelectedIndex(index);
     setColor("#8c5000");
@@ -84,15 +88,18 @@ export const MainListItems = () => {
         selected={selectedIndex === 0}
         component={Link}
         to="/addInventory"
-        onClick={(e) => handleListItemClick(e, 0)}
+        onClick={(e) => {
+          handleInventoryClick()
+          handleListItemClick(e, 0)
+          }}
       >
         <ListItemIcon>
           <InventoryIcon />
         </ListItemIcon>
         <ListItemText primary="Inventory Tracking" />
-        {open ? <ExpandLess /> : <ExpandMore />}
+        {openInventory ? <ExpandLess /> : <ExpandMore />}
       </ListItemButton>
-      <Collapse in={open} timeout="auto" unmountOnExit>
+      <Collapse in={openInventory} timeout="auto" unmountOnExit>
         <List>
           <ListItemButton component={Link} to="/addInventory">
             <ListItemIcon>
@@ -105,6 +112,12 @@ export const MainListItems = () => {
               <InventoryIcon />
             </ListItemIcon>
             <ListItemText primary="Add Livestock" />
+          </ListItemButton>
+          <ListItemButton component={Link} to="/viewInventory">
+            <ListItemIcon>
+              <InventoryIcon />
+            </ListItemIcon>
+            <ListItemText primary="View Inventory" />
           </ListItemButton>
         </List>
     </Collapse>
