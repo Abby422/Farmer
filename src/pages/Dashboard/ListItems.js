@@ -7,10 +7,18 @@ import GrassIcon from "@mui/icons-material/Grass";
 import AccountBalanceIcon from "@mui/icons-material/AccountBalance";
 import InventoryIcon from "@mui/icons-material/Inventory";
 import { Link } from "react-router-dom";
+import { Add, ExpandLess, ExpandMore} from "@mui/icons-material";
+import { Collapse, List } from "@mui/material";
 
 export const MainListItems = () => {
   const [selectedIndex, setSelectedIndex] = React.useState(1);
   const [color, setColor] = React.useState("");
+
+  const [open, setOpen] = React.useState(true);
+
+  const handleClick = () => {
+    setOpen(!open);
+  };
 
   const handleListItemClick = (event, index) => {
     setSelectedIndex(index);
@@ -34,15 +42,35 @@ export const MainListItems = () => {
       </ListItemButton>
       <ListItemButton
         component={Link}
-        to="/"
+        to="/add"
         selected={selectedIndex === 0}
-        onClick={(e) => handleListItemClick(e, 0)}
+        onClick={(e) => {
+          handleClick();
+          handleListItemClick(e, 0);
+        }}
       >
         <ListItemIcon>
           <GrassIcon />
         </ListItemIcon>
         <ListItemText primary="Crop Monitoring" />
+        {open ? <ExpandLess /> : <ExpandMore />}
       </ListItemButton>
+      <Collapse in={open} timeout="auto" unmountOnExit>
+        <List>
+          <ListItemButton component={Link} to="/add">
+            <ListItemIcon>
+              <Add />
+            </ListItemIcon>
+            <ListItemText primary="Add Crop" />
+          </ListItemButton>
+          <ListItemButton component={Link} to="/view">
+            <ListItemIcon>
+              <GrassIcon />
+            </ListItemIcon>
+            <ListItemText primary="View Crop" />
+          </ListItemButton>
+        </List>
+      </Collapse>
       <ListItemButton
         selected={selectedIndex === 0}
         onClick={(e) => handleListItemClick(e, 0)}
@@ -54,14 +82,32 @@ export const MainListItems = () => {
       </ListItemButton>
       <ListItemButton
         selected={selectedIndex === 0}
+        component={Link}
+        to="/addInventory"
         onClick={(e) => handleListItemClick(e, 0)}
       >
         <ListItemIcon>
           <InventoryIcon />
         </ListItemIcon>
         <ListItemText primary="Inventory Tracking" />
+        {open ? <ExpandLess /> : <ExpandMore />}
       </ListItemButton>
-      
+      <Collapse in={open} timeout="auto" unmountOnExit>
+        <List>
+          <ListItemButton component={Link} to="/addInventory">
+            <ListItemIcon>
+              <Add />
+            </ListItemIcon>
+            <ListItemText primary="Add Machine" />
+          </ListItemButton>
+          <ListItemButton component={Link} to="/addLivestock">
+            <ListItemIcon>
+              <InventoryIcon />
+            </ListItemIcon>
+            <ListItemText primary="Add Livestock" />
+          </ListItemButton>
+        </List>
+    </Collapse>
     </>
   );
 };
