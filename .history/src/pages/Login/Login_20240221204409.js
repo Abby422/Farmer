@@ -11,8 +11,9 @@ import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import Grid from "@mui/material/Grid";
-import { Link as RouterLink } from "react-router-dom";
+import { Link as RouterLink, useHistory } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
+
 
 const defaultTheme = createTheme({
   palette: {
@@ -58,19 +59,12 @@ const defaultTheme = createTheme({
 });
 
 export default function Login() {
-  const navigate = useNavigate();
-  const [error, setError] = React.useState(null);
-
+const navigate = useNavigate();
   const handleSubmit = async (event) => {
     event.preventDefault();
     const formData = new FormData(event.currentTarget);
     const email = formData.get("email");
     const password = formData.get("password");
-
-    if (!email || !password) {
-      setError("Email and password are required");
-      return;
-    }
 
     try {
       const response = await fetch("http://your-django-api-url/login/", {
@@ -95,10 +89,9 @@ export default function Login() {
         navigate("/");
       } else {
         // Handle login failure
-        setError("Invalid email or password");
+        console.error("Login failed");
       }
     } catch (error) {
-      setError("Error during login");
       console.error("Error during login:", error);
     }
   };
@@ -152,11 +145,6 @@ export default function Login() {
               control={<Checkbox value="remember" color="primary" />}
               label="Remember me"
             />
-              {error && (
-                <Typography color="error" variant="body2" sx={{ mt: 1 }}>
-                  {error}
-                </Typography>
-              )}
             <Button
               type="submit"
               fullWidth

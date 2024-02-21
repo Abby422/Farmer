@@ -36,10 +36,7 @@ const inventoryData = {
     },
     // Add more livestock data as needed
   ],
-  employees: [
-    { id: 1, name: "John Doe", position: "Farmhand", department: "Farming" },
-    // Add more employee data as needed
-  ],
+
 };
 
 const ViewInventory = () => {
@@ -73,17 +70,7 @@ const ViewInventory = () => {
             Livestock
           </Button>
         </Grid>
-        <Grid item>
-          <Button
-            variant={
-              currentInventory === "employees" ? "contained" : "outlined"
-            }
-            color="primary"
-            onClick={() => handleFilter("employees")}
-          >
-            Employees
-          </Button>
-        </Grid>
+       
       </Grid>
       <TableContainer>
         <Table>
@@ -109,14 +96,7 @@ const ViewInventory = () => {
                   <TableCell>Actions</TableCell>
                 </>
               )}
-              {currentInventory === "employees" && (
-                <>
-                  <TableCell>Name</TableCell>
-                  <TableCell>Position</TableCell>
-                  <TableCell>Department</TableCell>
-                  <TableCell>Actions</TableCell>
-                </>
-              )}
+          
             </TableRow>
           </TableHead>
           <TableBody>
@@ -166,25 +146,7 @@ const ViewInventory = () => {
                     </TableCell>
                   </>
                 )}
-                {currentInventory === "employees" && (
-                  <>
-                    <TableCell>{item.name}</TableCell>
-                    <TableCell>{item.position}</TableCell>
-                    <TableCell>{item.department}</TableCell>
-                    <TableCell>
-                      <Button
-                        variant="contained"
-                        color="primary"
-                        sx={{ marginRight: 5 }}
-                      >
-                        Update
-                      </Button>
-                      <Button variant="contained" color="error">
-                        Delete
-                      </Button>
-                    </TableCell>
-                  </>
-                )}
+              
               </TableRow>
             ))}
           </TableBody>

@@ -152,11 +152,6 @@ export default function Login() {
               control={<Checkbox value="remember" color="primary" />}
               label="Remember me"
             />
-              {error && (
-                <Typography color="error" variant="body2" sx={{ mt: 1 }}>
-                  {error}
-                </Typography>
-              )}
             <Button
               type="submit"
               fullWidth
@@ -165,6 +160,11 @@ export default function Login() {
             >
               Sign In
             </Button>
+            {error && (
+              <Typography color="error" variant="body2" sx={{ mt: 1 }}>
+                {error}
+              </Typography>
+            )}
           </Box>
           <Grid container justifyContent="flex-end">
             <Grid item>

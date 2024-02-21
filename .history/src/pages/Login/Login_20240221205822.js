@@ -59,7 +59,6 @@ const defaultTheme = createTheme({
 
 export default function Login() {
   const navigate = useNavigate();
-  const [error, setError] = React.useState(null);
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -68,7 +67,7 @@ export default function Login() {
     const password = formData.get("password");
 
     if (!email || !password) {
-      setError("Email and password are required");
+      console.error("Email and password are required");
       return;
     }
 
@@ -95,10 +94,9 @@ export default function Login() {
         navigate("/");
       } else {
         // Handle login failure
-        setError("Invalid email or password");
+        console.error("Login failed");
       }
     } catch (error) {
-      setError("Error during login");
       console.error("Error during login:", error);
     }
   };
@@ -152,11 +150,6 @@ export default function Login() {
               control={<Checkbox value="remember" color="primary" />}
               label="Remember me"
             />
-              {error && (
-                <Typography color="error" variant="body2" sx={{ mt: 1 }}>
-                  {error}
-                </Typography>
-              )}
             <Button
               type="submit"
               fullWidth
