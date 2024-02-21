@@ -136,7 +136,6 @@ const ViewCrops = () => {
           <Grid container spacing={2}>
             <Grid item xs={12}>
               <TextField
-                style={{ marginTop: 10 }}
                 label="Variety"
                 fullWidth
                 value={selectedCrop?.variety || ""}

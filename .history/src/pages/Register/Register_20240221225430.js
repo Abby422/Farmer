@@ -94,7 +94,7 @@ export default function Register() {
     const raw = JSON.stringify({
       username: userData.username,
       email: userData.email,
-      password: userData.password1,
+      password1: userData.password1,
     });
 
     const requestOptions = {
@@ -112,14 +112,14 @@ export default function Register() {
 
       if (!response.ok) {
         throw new Error(`Registration failed: ${response.statusText}`);
-      } 
+      }
 
       const result = await response.json();
       console.log(result);
 
-      if (result.id) {
-        localStorage.setItem("username", result.username);
-        navigate("/login");
+      if (result.key) {
+        localStorage.setItem("token", result.key);
+        NavigateBefore("/dashboard");
       } else {
         setError("An error occurred during registration");
       }

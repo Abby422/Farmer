@@ -65,16 +65,15 @@ export default function Login() {
     event.preventDefault();
     const formData = new FormData(event.currentTarget);
     const email = formData.get("email");
-    const password = formData.get("password"); 
-    const username = formData.get("username");
+    const password = formData.get("password");
 
-    if (!email || !password ) {
+    if (!email || !password) {
       setError("Email and password are required");
       return;
     }
 
     try {
-      const response = await fetch("http://127.0.0.1:8000/auth/login/", {
+      const response = await fetch("http://your-django-api-url/login/", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -128,7 +127,15 @@ export default function Login() {
             noValidate
             sx={{ mt: 1 }}
           >
-            
+              <TextField
+                autoComplete="username"
+                name="username"
+                required
+                fullWidth
+                id="username"
+                label="Username"
+                autoFocus
+              />
             <TextField
               margin="normal"
               required

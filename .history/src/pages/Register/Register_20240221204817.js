@@ -10,8 +10,6 @@ import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
-import { useNavigate } from "react-router-dom";
-
 
 const defaultTheme = createTheme({
   palette: {
@@ -59,7 +57,6 @@ const defaultTheme = createTheme({
 export default function Register() {
   const [error, setError] = React.useState(null);
 
-  const navigate = useNavigate();
   const handleSubmit = async (event) => {
     event.preventDefault();
     const formData = new FormData(event.currentTarget);
@@ -94,7 +91,8 @@ export default function Register() {
     const raw = JSON.stringify({
       username: userData.username,
       email: userData.email,
-      password: userData.password1,
+      password1: userData.password1,
+      password2: userData.password2,
     });
 
     const requestOptions = {
@@ -112,14 +110,14 @@ export default function Register() {
 
       if (!response.ok) {
         throw new Error(`Registration failed: ${response.statusText}`);
-      } 
+      }
 
       const result = await response.json();
       console.log(result);
 
-      if (result.id) {
-        localStorage.setItem("username", result.username);
-        navigate("/login");
+      if (result.key) {
+        localStorage.setItem("token", result.key);
+        window.location.href = "/dashboard";
       } else {
         setError("An error occurred during registration");
       }

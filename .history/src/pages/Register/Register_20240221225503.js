@@ -112,14 +112,14 @@ export default function Register() {
 
       if (!response.ok) {
         throw new Error(`Registration failed: ${response.statusText}`);
-      } 
+      }
 
       const result = await response.json();
       console.log(result);
 
-      if (result.id) {
-        localStorage.setItem("username", result.username);
-        navigate("/login");
+      if (result.key) {
+        localStorage.setItem("token", result.key);
+        navigate("/dashboard");
       } else {
         setError("An error occurred during registration");
       }

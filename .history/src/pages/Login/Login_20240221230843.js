@@ -68,8 +68,8 @@ export default function Login() {
     const password = formData.get("password"); 
     const username = formData.get("username");
 
-    if (!email || !password ) {
-      setError("Email and password are required");
+    if (!email || !password || !username) {
+      setError("All fields are required");
       return;
     }
 
@@ -128,7 +128,15 @@ export default function Login() {
             noValidate
             sx={{ mt: 1 }}
           >
-            
+              <TextField
+                autoComplete="username"
+                name="username"
+                required
+                fullWidth
+                id="username"
+                label="Username"
+                autoFocus
+              />
             <TextField
               margin="normal"
               required

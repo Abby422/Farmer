@@ -7,11 +7,6 @@ import {
   Grid,
   Box,
   Button,
-  Dialog,
-  DialogTitle,
-  DialogContent,
-  TextField,
-  DialogActions,
 } from "@mui/material";
 
 // Sample dummy data for crops
@@ -48,30 +43,18 @@ const dummyCrops = [
 
 const ViewCrops = () => {
   const [crops, setCrops] = useState(dummyCrops);
-  const [openDialog, setOpenDialog] = useState(false);
-  const [selectedCrop, setSelectedCrop] = useState(null);
 
-  const handleUpdate = (crop) => {
-    setSelectedCrop(crop);
-    setOpenDialog(true);
-  };
-
-  const handleCloseDialog = () => {
-    setOpenDialog(false);
-    setSelectedCrop(null);
-  };
-
-  const handleSaveUpdate = () => {
+  const handleUpdate = (cropId) => {
     // Implement your update logic here
-    console.log("Update values:", selectedCrop);
-    // Close the dialog
-    handleCloseDialog();
+    console.log(`Update crop with ID: ${cropId}`);
   };
 
-  const handleDelete = (id) => {
+  const handleDelete = (cropId) => {
     // Implement your delete logic here
-    console.log("Delete crop with id:", id);
+    console.log(`Delete crop with ID: ${cropId}`);
+    setCrops((prevCrops) => prevCrops.filter((crop) => crop.id !== cropId));
   };
+
   return (
     <Box
       sx={{
@@ -108,7 +91,7 @@ const ViewCrops = () => {
                   Harvesting Date: {crop.harvestingDate}
                 </Typography>
                 <Button
-                  onClick={() => handleUpdate(crop)}
+                  onClick={() => handleUpdate(crop.id)}
                   variant="contained"
                   color="primary"
                   sx={{ marginTop: 1, marginRight: 1 }}
@@ -128,64 +111,6 @@ const ViewCrops = () => {
           </Grid>
         ))}
       </Grid>
-
-      {/* Update Dialog */}
-      <Dialog open={openDialog} onClose={handleCloseDialog}>
-        <DialogTitle>Update Crop</DialogTitle>
-        <DialogContent>
-          <Grid container spacing={2}>
-            <Grid item xs={12}>
-              <TextField
-                style={{ marginTop: 10 }}
-                label="Variety"
-                fullWidth
-                value={selectedCrop?.variety || ""}
-                onChange={(e) =>
-                  setSelectedCrop({ ...selectedCrop, variety: e.target.value })
-                }
-              />
-            </Grid>
-            <Grid item xs={12}>
-              <TextField
-                label="Planting Date"
-                fullWidth
-                type="date"
-                InputLabelProps={{ shrink: true }}
-                value={selectedCrop?.plantingDate || ""}
-                onChange={(e) =>
-                  setSelectedCrop({
-                    ...selectedCrop,
-                    plantingDate: e.target.value,
-                  })
-                }
-              />
-            </Grid>
-            <Grid item xs={12}>
-              <TextField
-                label="Harvesting Date"
-                fullWidth
-                type="date"
-                InputLabelProps={{ shrink: true }}
-                value={selectedCrop?.harvestingDate || ""}
-                onChange={(e) =>
-                  setSelectedCrop({
-                    ...selectedCrop,
-                    harvestingDate: e.target.value,
-                  })
-                }
-              />
-            </Grid>
-          </Grid>
-        </DialogContent>
-        <DialogActions>
-          <Button onClick={handleCloseDialog} color="primary">
-            Cancel
-          </Button>
-          <Button onClick={handleSaveUpdate} color="primary">
-            Save
-          </Button>
-        </DialogActions>
-      </Dialog>
     </Box>
   );
 };

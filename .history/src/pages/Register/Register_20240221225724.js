@@ -118,8 +118,8 @@ export default function Register() {
       console.log(result);
 
       if (result.id) {
-        localStorage.setItem("username", result.username);
-        navigate("/login");
+        localStorage.setItem("token", result.key);
+        navigate("/dashboard");
       } else {
         setError("An error occurred during registration");
       }

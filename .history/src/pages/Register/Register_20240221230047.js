@@ -119,7 +119,7 @@ export default function Register() {
 
       if (result.id) {
         localStorage.setItem("username", result.username);
-        navigate("/login");
+        navigate("/");
       } else {
         setError("An error occurred during registration");
       }

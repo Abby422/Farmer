@@ -117,9 +117,9 @@ export default function Register() {
       const result = await response.json();
       console.log(result);
 
-      if (result.id) {
-        localStorage.setItem("username", result.username);
-        navigate("/login");
+      if (result.key) {
+        localStorage.setItem("token", result.key);
+        navigate("/dashboard");
       } else {
         setError("An error occurred during registration");
       }

@@ -105,7 +105,7 @@ function CropMonitoring() {
                   onChange={handleChange}
                 />
               </Grid>
-              <Grid item xs={12} sm={6}>
+              <Grid item xs={12}>
                 <TextField
                   name="plantingDate"
                   required
@@ -119,7 +119,7 @@ function CropMonitoring() {
                   }}
                 />
               </Grid>
-              <Grid item xs={12} sm={6}>
+              <Grid item xs={12}>
                 <TextField
                   name="harvestingDate"
                   required
