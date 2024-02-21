@@ -41,6 +41,7 @@ function AddEmployee() {
         body: JSON.stringify(formData),
       });
 
+      // Handle the response as needed
       if (response.ok) {
         // Data successfully submitted
         console.log("Employee added successfully");

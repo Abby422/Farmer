@@ -63,8 +63,10 @@ function LivestockInventory() {
       });
 
       if (response.ok) {
+        // Handle success, e.g., show a success message or redirect
         console.log("Livestock added successfully!");
       } else {
+        // Handle failure, e.g., show an error message
         console.error("Failed to add livestock");
       }
     } catch (error) {

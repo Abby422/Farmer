@@ -8,10 +8,10 @@ import {
   Grid,
   TextField,
   Button,
-  createTheme
 } from "@mui/material";
 
-const defaultTheme = createTheme()
+const defaultTheme = {}; // Assuming you have defined your theme somewhere
+
 function AddEmployee() {
   const [formData, setFormData] = useState({
     name: "",
@@ -32,8 +32,9 @@ function AddEmployee() {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
+    // Send the form data to your Django backend
     try {
-      const response = await fetch("http://127.0.0.1:8000/api/employees/", {
+      const response = await fetch("YOUR_BACKEND_API_ENDPOINT", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -41,6 +42,7 @@ function AddEmployee() {
         body: JSON.stringify(formData),
       });
 
+      // Handle the response as needed
       if (response.ok) {
         // Data successfully submitted
         console.log("Employee added successfully");
