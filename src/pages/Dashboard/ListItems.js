@@ -2,20 +2,20 @@ import * as React from "react";
 import ListItemButton from "@mui/material/ListItemButton";
 import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
-import DashboardIcon from "@mui/icons-material/Dashboard";
+import { SupervisedUserCircle } from "@mui/icons-material";
 import GrassIcon from "@mui/icons-material/Grass";
 import AccountBalanceIcon from "@mui/icons-material/AccountBalance";
 import InventoryIcon from "@mui/icons-material/Inventory";
 import { Link } from "react-router-dom";
-import { Add, ExpandLess, ExpandMore} from "@mui/icons-material";
+import { Add, ExpandLess, ExpandMore } from "@mui/icons-material";
 import { Collapse, List } from "@mui/material";
 
 export const MainListItems = () => {
   const [selectedIndex, setSelectedIndex] = React.useState(1);
   const [color, setColor] = React.useState("");
 
-  const [open, setOpen] = React.useState(true);
-  const [openInventory, setOpenInventory] = React.useState(true);
+  const [open, setOpen] = React.useState(false);
+  const [openInventory, setOpenInventory] = React.useState(false);
 
   const handleClick = () => {
     setOpen(!open);
@@ -23,13 +23,12 @@ export const MainListItems = () => {
 
   const handleInventoryClick = () => {
     setOpenInventory(!openInventory);
-  }
+  };
   const handleListItemClick = (event, index) => {
     setSelectedIndex(index);
     setColor("#8c5000");
   };
 
-  
   return (
     <>
       <ListItemButton
@@ -40,9 +39,21 @@ export const MainListItems = () => {
         onClick={(e) => handleListItemClick(e, 0)}
       >
         <ListItemIcon>
-          <DashboardIcon />
+          <AccountBalanceIcon />
         </ListItemIcon>
-        <ListItemText primary="Dashboard" />
+        <ListItemText primary="Financial Analysis" />
+      </ListItemButton>
+      <ListItemButton
+        component={Link}
+        to="/employees"
+        selected={selectedIndex === 0}
+        color={color}
+        onClick={(e) => handleListItemClick(e, 0)}
+      >
+        <ListItemIcon>
+          <SupervisedUserCircle />
+        </ListItemIcon>
+        <ListItemText primary="Employees" />
       </ListItemButton>
       <ListItemButton
         component={Link}
@@ -77,27 +88,25 @@ export const MainListItems = () => {
       </Collapse>
       <ListItemButton
         selected={selectedIndex === 0}
-        onClick={(e) => handleListItemClick(e, 0)}
-      >
-        <ListItemIcon>
-          <AccountBalanceIcon />
-        </ListItemIcon>
-        <ListItemText primary="Financial Analysis" />
-      </ListItemButton>
-      <ListItemButton
-        selected={selectedIndex === 0}
         component={Link}
         to="/addInventory"
         onClick={(e) => {
-          handleInventoryClick()
-          handleListItemClick(e, 0)
-          }}
+          handleInventoryClick();
+          handleListItemClick(e, 0);
+        }}
       >
         <ListItemIcon>
           <InventoryIcon />
         </ListItemIcon>
         <ListItemText primary="Inventory Tracking" />
-        {openInventory ? <ExpandLess /> : <ExpandMore />}
+        <ListItemText
+          style={{
+            marginTop: "10px",
+            marginLeft: "20px",
+          }}
+        >
+          {openInventory ? <ExpandLess /> : <ExpandMore />}
+        </ListItemText>
       </ListItemButton>
       <Collapse in={openInventory} timeout="auto" unmountOnExit>
         <List>
@@ -120,8 +129,7 @@ export const MainListItems = () => {
             <ListItemText primary="View Inventory" />
           </ListItemButton>
         </List>
-    </Collapse>
+      </Collapse>
     </>
   );
 };
-

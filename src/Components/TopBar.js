@@ -101,7 +101,7 @@ function TopBar() {
             noWrap
             sx={{ flexGrow: 1 }}
           >
-            {getGreeting()}, User
+            {getGreeting()}, 
           </Typography>
           <IconButton color="inherit">
             <Badge badgeContent={4} color="secondary">

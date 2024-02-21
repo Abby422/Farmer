@@ -12,6 +12,8 @@ import Inventory from "./pages/Inventory/Inventory";
 import LivestockInventory from "./pages/Inventory/LivestockInventory";
 import ViewInventory from "./pages/Inventory/ViewInventory";
 import theme from './theme';
+import Employees from "./pages/Employees/employees";
+import AddEmployee from "./pages/Employees/addEmployee";
 
 const DashboardLayout = ({ children }) => (
   <ThemeProvider theme={theme}>
@@ -61,10 +63,26 @@ function App() {
         }
       />
       <Route
+        path="/addEmployee"
+        element={
+          <DashboardLayout>
+            <AddEmployee />
+          </DashboardLayout>
+        }
+      />
+      <Route
         path="/addInventory"
         element={
           <DashboardLayout>
             <Inventory />
+          </DashboardLayout>
+        }
+      />
+      <Route
+        path="/employees"
+        element={
+          <DashboardLayout>
+            <Employees />
           </DashboardLayout>
         }
       />
@@ -75,7 +93,7 @@ function App() {
             <ViewInventory />
           </DashboardLayout>
         }
-        />
+      />
       <Route
         path="/addLivestock"
         element={
