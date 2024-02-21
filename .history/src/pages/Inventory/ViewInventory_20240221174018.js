@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import {
   Button,
   Container,
@@ -12,46 +12,41 @@ import {
 } from "@mui/material";
 import { useTheme } from "@emotion/react";
 
+
+const inventoryData = {
+  machines: [
+    {
+      id: 1,
+      plateNumber: "ABC123",
+      equipmentName: "Tractor",
+      purchasePrice: "$10000",
+      purchaseDate: "2023-01-15",
+      operation: "Farming",
+    },
+    // Add more machine data as needed
+  ],
+  livestock: [
+    {
+      id: 1,
+      tagNumber: "001",
+      animalType: "Cow",
+      age: 3,
+      breed: "Angus",
+      moreDetails: "Healthy and active",
+    },
+    // Add more livestock data as needed
+  ],
+
+};
+
 const ViewInventory = () => {
   const [currentInventory, setCurrentInventory] = useState("machines");
-  const [inventoryData, setInventoryData] = useState({
-    machines: [],
-    livestock: [],
-  });
   const theme = useTheme();
 
   const handleFilter = (inventoryType) => {
     setCurrentInventory(inventoryType);
   };
 
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await fetch("http://your-django-api-url/inventory/");
-        if (response.ok) {
-          const data = await response.json();
-          setInventoryData(data);
-        } else {
-          console.error("Failed to fetch inventory data");
-        }
-      } catch (error) {
-        console.error("Error during inventory data fetching:", error);
-      }
-    };
-
-    fetchData();
-  }, []);
-
-
-  const handleUpdate = (itemId) => {
-    console.log(`Update item with ID ${itemId}`);
-    // Add logic to handle the update operation
-  };
-
-  const handleDelete = (itemId) => {
-    console.log(`Delete item with ID ${itemId}`);
-    // Add logic to handle the delete operation
-  };
   return (
     <Container sx={{ marginTop: 10 }}>
       <Grid container spacing={2} justifyContent="center">
@@ -75,6 +70,7 @@ const ViewInventory = () => {
             Livestock
           </Button>
         </Grid>
+       
       </Grid>
       <TableContainer>
         <Table>
@@ -100,6 +96,7 @@ const ViewInventory = () => {
                   <TableCell>Actions</TableCell>
                 </>
               )}
+          
             </TableRow>
           </TableHead>
           <TableBody>
@@ -115,16 +112,14 @@ const ViewInventory = () => {
                     <TableCell>
                       <Button
                         variant="contained"
-                        onClick={() => handleUpdate(item.id)}
-                        sx={{ marginRight: 5 }}
+                        sx={{
+                          backgroundColor: theme.palette.blue.main,
+                          marginRight: 5,
+                        }}
                       >
                         Update
                       </Button>
-                      <Button
-                        variant="contained"
-                        color="error"
-                        onClick={() => handleDelete(item.id)}
-                      >
+                      <Button variant="contained" color="error">
                         Delete
                       </Button>
                     </TableCell>
@@ -141,21 +136,17 @@ const ViewInventory = () => {
                       <Button
                         variant="contained"
                         color="primary"
-                        onClick={() => handleUpdate(item.id)}
                         sx={{ marginRight: 5 }}
                       >
                         Update
                       </Button>
-                      <Button
-                        variant="contained"
-                        color="error"
-                        onClick={() => handleDelete(item.id)}
-                      >
+                      <Button variant="contained" color="error">
                         Delete
                       </Button>
                     </TableCell>
                   </>
                 )}
+              
               </TableRow>
             ))}
           </TableBody>

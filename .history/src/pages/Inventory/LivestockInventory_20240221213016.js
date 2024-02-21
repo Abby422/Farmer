@@ -33,49 +33,46 @@ function LivestockInventory() {
     }));
   };
 
-  const handleSubmit = async (event) => {
-    event.preventDefault();
+const handleSubmit = async (event) => {
+  event.preventDefault();
 
-    // Check if required fields are filled in
-    const requiredFields = [
-      "tagNumber",
-      "animalType",
-      "age",
-      "breed",
-      "weight",
-      "purchaseDate",
-      "purchasePrice",
-    ];
-    const missingFields = requiredFields.filter((field) => !formValues[field]);
+  // Check if required fields are filled in
+  const requiredFields = [
+    "tagNumber",
+    "animalType",
+    "age",
+    "breed",
+    "weight",
+    "purchaseDate",
+    "purchasePrice",
+  ];
+  const missingFields = requiredFields.filter((field) => !formValues[field]);
 
-    if (missingFields.length > 0) {
-      console.error(`Missing required fields: ${missingFields.join(", ")}`);
-      return;
+  if (missingFields.length > 0) {
+    console.error(`Missing required fields: ${missingFields.join(", ")}`);
+    return;
+  }
+
+  try {
+    const response = await fetch("http://your-django-api-url/add-livestock/", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(formValues),
+    });
+
+    if (response.ok) {
+      // Handle success, e.g., show a success message or redirect
+      console.log("Livestock added successfully!");
+    } else {
+      // Handle failure, e.g., show an error message
+      console.error("Failed to add livestock");
     }
-
-    try {
-      const response = await fetch(
-        "http://your-django-api-url/add-livestock/",
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(formValues),
-        }
-      );
-
-      if (response.ok) {
-        // Handle success, e.g., show a success message or redirect
-        console.log("Livestock added successfully!");
-      } else {
-        // Handle failure, e.g., show an error message
-        console.error("Failed to add livestock");
-      }
-    } catch (error) {
-      console.error("Error during livestock addition:", error);
-    }
-  };
+  } catch (error) {
+    console.error("Error during livestock addition:", error);
+  }
+};
 
   return (
     <ThemeProvider theme={defaultTheme}>
@@ -171,7 +168,7 @@ function LivestockInventory() {
                   onChange={handleChange}
                 />
               </Grid>
-              <Grid item xs={12}>
+              <Grid item xs={12} >
                 <TextField
                   required
                   fullWidth

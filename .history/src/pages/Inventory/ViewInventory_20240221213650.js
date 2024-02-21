@@ -42,16 +42,6 @@ const ViewInventory = () => {
     fetchData();
   }, []);
 
-
-  const handleUpdate = (itemId) => {
-    console.log(`Update item with ID ${itemId}`);
-    // Add logic to handle the update operation
-  };
-
-  const handleDelete = (itemId) => {
-    console.log(`Delete item with ID ${itemId}`);
-    // Add logic to handle the delete operation
-  };
   return (
     <Container sx={{ marginTop: 10 }}>
       <Grid container spacing={2} justifyContent="center">

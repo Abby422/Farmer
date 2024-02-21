@@ -42,16 +42,6 @@ const ViewInventory = () => {
     fetchData();
   }, []);
 
-
-  const handleUpdate = (itemId) => {
-    console.log(`Update item with ID ${itemId}`);
-    // Add logic to handle the update operation
-  };
-
-  const handleDelete = (itemId) => {
-    console.log(`Delete item with ID ${itemId}`);
-    // Add logic to handle the delete operation
-  };
   return (
     <Container sx={{ marginTop: 10 }}>
       <Grid container spacing={2} justifyContent="center">
@@ -115,16 +105,14 @@ const ViewInventory = () => {
                     <TableCell>
                       <Button
                         variant="contained"
-                        onClick={() => handleUpdate(item.id)}
-                        sx={{ marginRight: 5 }}
+                        sx={{
+                          backgroundColor: theme.palette.blue.main,
+                          marginRight: 5,
+                        }}
                       >
                         Update
                       </Button>
-                      <Button
-                        variant="contained"
-                        color="error"
-                        onClick={() => handleDelete(item.id)}
-                      >
+                      <Button variant="contained" color="error">
                         Delete
                       </Button>
                     </TableCell>
@@ -141,16 +129,11 @@ const ViewInventory = () => {
                       <Button
                         variant="contained"
                         color="primary"
-                        onClick={() => handleUpdate(item.id)}
                         sx={{ marginRight: 5 }}
                       >
                         Update
                       </Button>
-                      <Button
-                        variant="contained"
-                        color="error"
-                        onClick={() => handleDelete(item.id)}
-                      >
+                      <Button variant="contained" color="error">
                         Delete
                       </Button>
                     </TableCell>

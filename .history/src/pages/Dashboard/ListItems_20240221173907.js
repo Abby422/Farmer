@@ -118,7 +118,7 @@ export const MainListItems = () => {
           </ListItemButton>
           <ListItemButton component={Link} to="/addLivestock">
             <ListItemIcon>
-              <Add />
+              <InventoryIcon />
             </ListItemIcon>
             <ListItemText primary="Add Livestock" />
           </ListItemButton>
