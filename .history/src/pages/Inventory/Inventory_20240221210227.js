@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import {
   TextField,
   Button,
@@ -14,46 +14,6 @@ import { ThemeProvider } from "@emotion/react";
 const defaultTheme = createTheme();
 
 function Inventory() {
-  const [formValues, setFormValues] = useState({
-    plateNumber: "",
-    equipmentName: "",
-    purchasePrice: "",
-    purchaseDate: "",
-    operation: "",
-  });
-
-  const handleChange = (event) => {
-    const { name, value } = event.target;
-    setFormValues((prevValues) => ({
-      ...prevValues,
-      [name]: value,
-    }));
-  };
-
-  const handleSubmit = async (event) => {
-    event.preventDefault();
-
-    try {
-      const response = await fetch("http://your-django-api-url/add-machine/", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(formValues),
-      });
-
-      if (response.ok) {
-        // Handle success, e.g., show a success message or redirect
-        console.log("Machine added successfully!");
-      } else {
-        // Handle failure, e.g., show an error message
-        console.error("Failed to add machine");
-      }
-    } catch (error) {
-      console.error("Error during machine addition:", error);
-    }
-  };
-
   return (
     <ThemeProvider theme={defaultTheme}>
       <Container component="main" maxWidth="xs">
@@ -66,12 +26,7 @@ function Inventory() {
             alignItems: "center",
           }}
         >
-          <Box
-            component="form"
-            onSubmit={handleSubmit}
-            noValidate
-            sx={{ mt: 5 }}
-          >
+          <Box component="form" noValidate sx={{ mt: 5 }}>
             <Typography component="h1" variant="h5">
               Add Machine
             </Typography>
@@ -83,8 +38,6 @@ function Inventory() {
                   id="plateNumber"
                   label="Plate Number"
                   name="plateNumber"
-                  value={formValues.plateNumber}
-                  onChange={handleChange}
                 />
               </Grid>
               <Grid item xs={12}>
@@ -94,8 +47,6 @@ function Inventory() {
                   id="equipmentName"
                   label="Equipment Name"
                   name="equipmentName"
-                  value={formValues.equipmentName}
-                  onChange={handleChange}
                 />
               </Grid>
               <Grid item xs={12}>
@@ -106,8 +57,6 @@ function Inventory() {
                   label="Purchase Price"
                   name="purchasePrice"
                   type="number"
-                  value={formValues.purchasePrice}
-                  onChange={handleChange}
                 />
               </Grid>
               <Grid item xs={12}>
@@ -121,11 +70,16 @@ function Inventory() {
                   InputLabelProps={{
                     shrink: true,
                   }}
-                  value={formValues.purchaseDate}
-                  onChange={handleChange}
                 />
               </Grid>
-             
+              <Grid item xs={12}>
+                <TextField
+                  fullWidth
+                  id="operation"
+                  label="Operation"
+                  name="operation"
+                />
+              </Grid>
             </Grid>
             <Button
               type="submit"

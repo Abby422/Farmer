@@ -13,13 +13,13 @@ import { ThemeProvider } from "@emotion/react";
 
 const defaultTheme = createTheme();
 
-function Inventory() {
+function LivestockInventory() {
   const [formValues, setFormValues] = useState({
-    plateNumber: "",
-    equipmentName: "",
-    purchasePrice: "",
-    purchaseDate: "",
-    operation: "",
+    tagNumber: "",
+    animalType: "",
+    age: "",
+    breed: "",
+    moreDetails: "",
   });
 
   const handleChange = (event) => {
@@ -34,23 +34,26 @@ function Inventory() {
     event.preventDefault();
 
     try {
-      const response = await fetch("http://your-django-api-url/add-machine/", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(formValues),
-      });
+      const response = await fetch(
+        "http://your-django-api-url/add-livestock/",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(formValues),
+        }
+      );
 
       if (response.ok) {
         // Handle success, e.g., show a success message or redirect
-        console.log("Machine added successfully!");
+        console.log("Livestock added successfully!");
       } else {
         // Handle failure, e.g., show an error message
-        console.error("Failed to add machine");
+        console.error("Failed to add livestock");
       }
     } catch (error) {
-      console.error("Error during machine addition:", error);
+      console.error("Error during livestock addition:", error);
     }
   };
 
@@ -70,20 +73,20 @@ function Inventory() {
             component="form"
             onSubmit={handleSubmit}
             noValidate
-            sx={{ mt: 5 }}
+            sx={{ mt: 1 }}
           >
             <Typography component="h1" variant="h5">
-              Add Machine
+              Add Livestock
             </Typography>
             <Grid container spacing={2}>
               <Grid item xs={12}>
                 <TextField
                   required
                   fullWidth
-                  id="plateNumber"
-                  label="Plate Number"
-                  name="plateNumber"
-                  value={formValues.plateNumber}
+                  id="tagNumber"
+                  label="Tag Number"
+                  name="tagNumber"
+                  value={formValues.tagNumber}
                   onChange={handleChange}
                 />
               </Grid>
@@ -91,10 +94,10 @@ function Inventory() {
                 <TextField
                   required
                   fullWidth
-                  id="equipmentName"
-                  label="Equipment Name"
-                  name="equipmentName"
-                  value={formValues.equipmentName}
+                  id="animalType"
+                  label="Animal Type"
+                  name="animalType"
+                  value={formValues.animalType}
                   onChange={handleChange}
                 />
               </Grid>
@@ -102,30 +105,39 @@ function Inventory() {
                 <TextField
                   required
                   fullWidth
-                  id="purchasePrice"
-                  label="Purchase Price"
-                  name="purchasePrice"
-                  type="number"
-                  value={formValues.purchasePrice}
+                  id="breed"
+                  label="Breed"
+                  name="breed"
+                  value={formValues.breed}
                   onChange={handleChange}
                 />
-              </Grid>
+                              </Grid>
+
+                <Grid item xs={12}>
+                  <TextField
+                    required
+                    fullWidth
+                    id="age"
+                    label="Age"
+                    name="age"
+                    type="number"
+                    value={formValues.age}
+                    onChange={handleChange}
+                  />
+                </Grid>
               <Grid item xs={12}>
                 <TextField
                   required
                   fullWidth
-                  id="purchaseDate"
-                  label="Purchase Date"
-                  name="purchaseDate"
-                  type="date"
-                  InputLabelProps={{
-                    shrink: true,
-                  }}
-                  value={formValues.purchaseDate}
+                  id="moreDetails"
+                  label="More Details"
+                  name="moreDetails"
+                  multiline
+                  rows={4}
+                  value={formValues.moreDetails}
                   onChange={handleChange}
                 />
               </Grid>
-             
             </Grid>
             <Button
               type="submit"
@@ -142,4 +154,4 @@ function Inventory() {
   );
 }
 
-export default Inventory;
+export default LivestockInventory;

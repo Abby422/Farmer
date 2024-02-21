@@ -125,7 +125,16 @@ function Inventory() {
                   onChange={handleChange}
                 />
               </Grid>
-             
+              <Grid item xs={12}>
+                <TextField
+                  fullWidth
+                  id="operation"
+                  label="Operation"
+                  name="operation"
+                  value={formValues.operation}
+                  onChange={handleChange}
+                />
+              </Grid>
             </Grid>
             <Button
               type="submit"
