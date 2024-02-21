@@ -14,7 +14,6 @@ import ViewInventory from "./pages/Inventory/ViewInventory";
 import theme from "./theme";
 import Employees from "./pages/Employees/employees";
 import AddEmployee from "./pages/Employees/addEmployee";
-import Financials from "./pages/financials/financials";
 
 const isAuthenticated = () => {
   // Check if the user is logged in. You can modify this check based on your authentication logic.
@@ -119,18 +118,6 @@ function App() {
             element={
               <DashboardLayout>
                 <Employees />
-              </DashboardLayout>
-            }
-          />
-        }
-      />
-      <Route
-        path="/financials"
-        element={
-          <PrivateRoute
-            element={
-              <DashboardLayout>
-                <Financials />
               </DashboardLayout>
             }
           />

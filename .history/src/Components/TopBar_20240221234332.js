@@ -1,4 +1,4 @@
-import {  Divider, IconButton, List, Toolbar, Typography } from '@mui/material'
+import { Badge, Divider, IconButton, List, Toolbar, Typography } from '@mui/material'
 import MuiAppBar from '@mui/material/AppBar'
 import MuiDrawer from '@mui/material/Drawer'
 import MenuIcon from '@mui/icons-material/Menu';
@@ -68,11 +68,6 @@ function getGreeting() {
   return greeting;
 }
 
-const logout = () => {
-  localStorage.clear();
-  window.location.href = '/';
- }
-
 function TopBar() {
       const [open, setOpen] = React.useState(true);
       const toggleDrawer = () => {
@@ -108,7 +103,7 @@ function TopBar() {
           >
             {getGreeting()}, 
           </Typography>
-          <IconButton color="inherit" onClick={logout}>
+          <IconButton color="inherit">
               <Logout />
           </IconButton>
         </Toolbar>

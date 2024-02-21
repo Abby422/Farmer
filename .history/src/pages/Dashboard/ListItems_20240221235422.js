@@ -2,13 +2,14 @@ import * as React from "react";
 import ListItemButton from "@mui/material/ListItemButton";
 import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
-import { Dashboard, SupervisedUserCircle } from "@mui/icons-material";
+import { SupervisedUserCircle } from "@mui/icons-material";
 import GrassIcon from "@mui/icons-material/Grass";
 import AccountBalanceIcon from "@mui/icons-material/AccountBalance";
 import InventoryIcon from "@mui/icons-material/Inventory";
 import { Link } from "react-router-dom";
 import { Add, ExpandLess, ExpandMore } from "@mui/icons-material";
 import { Collapse, List } from "@mui/material";
+import Dashboard from "./Dashboard";
 
 export const MainListItems = () => {
   const [selectedIndex, setSelectedIndex] = React.useState(1);

@@ -55,6 +55,10 @@ const rows = [
 ];
 
 
+function preventDefault(event) {
+  event.preventDefault();
+}
+
 export default function Orders() {
   return (
     <React.Fragment>
