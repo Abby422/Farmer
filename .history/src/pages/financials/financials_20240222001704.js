@@ -13,11 +13,12 @@ import {
 
 const defaultTheme = createTheme();
 
+
 const Financials = () => {
   const [formData, setFormData] = useState({
     amount: "",
     description: "",
-    date: "",
+    date: "", 
   });
 
   const handleChange = (e) => {
@@ -31,8 +32,9 @@ const Financials = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
+    // Send the form data to your Django backend for expenditure
     try {
-      const response = await fetch("http://127.0.0.1:8000/api/expenditure/", {
+      const response = await fetch("YOUR_BACKEND_API_ENDPOINT", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -103,7 +105,8 @@ const Financials = () => {
                   name="date"
                   required
                   fullWidth
-                  type="date"
+                  type="date" // Use type "date" for date input
+                  label="Date"
                   value={formData.date}
                   onChange={handleChange}
                 />

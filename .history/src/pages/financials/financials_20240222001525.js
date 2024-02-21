@@ -12,12 +12,10 @@ import {
 } from "@mui/material";
 
 const defaultTheme = createTheme();
-
 const Financials = () => {
   const [formData, setFormData] = useState({
     amount: "",
     description: "",
-    date: "",
   });
 
   const handleChange = (e) => {
@@ -31,8 +29,9 @@ const Financials = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
+    // Send the form data to your Django backend for expenditure
     try {
-      const response = await fetch("http://127.0.0.1:8000/api/expenditure/", {
+      const response = await fetch("YOUR_BACKEND_API_ENDPOINT", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -95,16 +94,6 @@ const Financials = () => {
                   multiline
                   rows={4}
                   value={formData.description}
-                  onChange={handleChange}
-                />
-              </Grid>
-              <Grid item xs={12}>
-                <TextField
-                  name="date"
-                  required
-                  fullWidth
-                  type="date"
-                  value={formData.date}
                   onChange={handleChange}
                 />
               </Grid>

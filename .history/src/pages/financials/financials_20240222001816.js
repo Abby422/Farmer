@@ -31,8 +31,9 @@ const Financials = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
+    // Send the form data to your Django backend for expenditure
     try {
-      const response = await fetch("http://127.0.0.1:8000/api/expenditure/", {
+      const response = await fetch("YOUR_BACKEND_API_ENDPOINT", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

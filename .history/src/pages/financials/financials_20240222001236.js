@@ -13,11 +13,11 @@ import {
 
 const defaultTheme = createTheme();
 
-const Financials = () => {
+function Financials() {
   const [formData, setFormData] = useState({
-    amount: "",
+    incomeAmount: "",
+    expenditureAmount: "",
     description: "",
-    date: "",
   });
 
   const handleChange = (e) => {
@@ -31,8 +31,9 @@ const Financials = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
+    // Send the form data to your Django backend for income and expenditure
     try {
-      const response = await fetch("http://127.0.0.1:8000/api/expenditure/", {
+      const response = await fetch("YOUR_BACKEND_API_ENDPOINT", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -43,13 +44,13 @@ const Financials = () => {
       // Handle the response as needed
       if (response.ok) {
         // Data successfully submitted
-        console.log("Expenditure added successfully");
+        console.log("Income and expenditure added successfully");
       } else {
         // Handle error response
-        console.error("Error adding expenditure");
+        console.error("Error adding income and expenditure");
       }
     } catch (error) {
-      console.error("Error adding expenditure", error);
+      console.error("Error adding income and expenditure", error);
     }
   };
 
@@ -72,17 +73,28 @@ const Financials = () => {
             onSubmit={handleSubmit}
           >
             <Typography component="h1" variant="h5">
-              Add Expenditure
+              Add Income and Expenditure
             </Typography>
             <Grid container spacing={2}>
               <Grid item xs={12}>
                 <TextField
-                  name="amount"
+                  name="incomeAmount"
+                  required
+                  fullWidth
+                  label="Income Amount"
+                  type="number"
+                  value={formData.incomeAmount}
+                  onChange={handleChange}
+                />
+              </Grid>
+              <Grid item xs={12}>
+                <TextField
+                  name="expenditureAmount"
                   required
                   fullWidth
                   label="Expenditure Amount"
                   type="number"
-                  value={formData.amount}
+                  value={formData.expenditureAmount}
                   onChange={handleChange}
                 />
               </Grid>
@@ -98,16 +110,6 @@ const Financials = () => {
                   onChange={handleChange}
                 />
               </Grid>
-              <Grid item xs={12}>
-                <TextField
-                  name="date"
-                  required
-                  fullWidth
-                  type="date"
-                  value={formData.date}
-                  onChange={handleChange}
-                />
-              </Grid>
             </Grid>
             <Button
               type="submit"
@@ -115,13 +117,13 @@ const Financials = () => {
               variant="contained"
               sx={{ mt: 3, mb: 2, bgcolor: "#296c00", color: "white" }}
             >
-              Add Expenditure
+              Add Income and Expenditure
             </Button>
           </Box>
         </Box>
       </Container>
     </ThemeProvider>
   );
-};
+}
 
 export default Financials;
