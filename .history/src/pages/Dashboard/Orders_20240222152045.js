@@ -33,30 +33,18 @@ const Orders = () => {
       <Table size="small">
         <TableHead>
           <TableRow>
-            <TableCell
-              style={{
-                fontSize: "20px",
-                fontWeight: "bold",
-              }}
-            >
-              Date
-            </TableCell>
-            <TableCell
-              style={{
-                fontSize: "20px",
-                fontWeight: "bold",
-              }}
-            >
-              Description
-            </TableCell>
-            <TableCell
-              style={{
-                fontSize: "20px",
-                fontWeight: "bold",
-              }}
-            >
-              Amount
-            </TableCell>
+            <TableCell  style={{
+            fontSize: "20px",
+            fontWeight: 'bold'
+          }}>Date</TableCell>
+            <TableCell  style={{
+            fontSize: "20px",
+            fontWeight: 'bold'
+          }}>Description</TableCell>
+            <TableCell  style={{
+            fontSize: "20px",
+            fontWeight: 'bold'
+          }}>Amount</TableCell>
           </TableRow>
         </TableHead>
         <TableBody>
