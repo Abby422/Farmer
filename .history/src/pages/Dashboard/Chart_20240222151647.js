@@ -48,7 +48,7 @@ const Chart = () => {
           xAxis={[
             {
               scaleType: "point",
-              dataKey: "time",
+              dataKey: "date",
               tickNumber: 2,
               tickLabelStyle: theme.typography.body2,
             },

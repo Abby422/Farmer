@@ -1,44 +1,39 @@
-import React, { useEffect, useState } from "react";
+import * as React from "react";
 import { useTheme } from "@mui/material/styles";
 import { LineChart, axisClasses } from "@mui/x-charts";
 
 import Title from "./Title";
 
-const Chart = () => {
+// Generate Sales Data
+function createData(time, amount) {
+  return { time, amount: amount ?? null };
+}
+
+const data = [
+  createData("JAN", 0),
+  createData("FEB", 300),
+  createData("MAR", 600),
+  createData("APR", 800),
+  createData("MAY", 1500),
+  createData("JUN", 2000),
+  createData("JUL", 2400),
+  createData("AUG", 2400),
+  createData("SEP", 2400),
+  createData("OCT", 2400),
+  createData("NOV", 2400),
+  createData("DEC", 2400),
+
+];
+
+export default function Chart() {
   const theme = useTheme();
-  const [expenditureData, setExpenditureData] = useState([]);
-
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await fetch("http://127.0.0.1:8000/api/expenditure/");
-        if (response.ok) {
-          const data = await response.json();
-          console.log(data);
-          setExpenditureData(data);
-        } else {
-          console.error("Failed to fetch expenditure data");
-        }
-      } catch (error) {
-        console.error("Error during expenditure data fetching:", error);
-      }
-    };
-
-    fetchData();
-  }, []);
-
-  // Convert fetched data to the format expected by LineChart
-  const chartData = expenditureData.map((entry) => ({
-    time: entry.date,
-    amount: parseFloat(entry.amount),
-  }));
 
   return (
     <React.Fragment>
       <Title color="#1a1c18">Expenditure</Title>
       <div style={{ width: "100%", flexGrow: 1, overflow: "hidden" }}>
         <LineChart
-          dataset={chartData}
+          dataset={data}
           margin={{
             top: 16,
             right: 20,
@@ -55,12 +50,13 @@ const Chart = () => {
           ]}
           yAxis={[
             {
-              label: "Expenditure ($)",
+              label: "Sales ($)",
               labelStyle: {
                 ...theme.typography.body1,
                 fill: theme.palette.text.primary,
               },
               tickLabelStyle: theme.typography.body2,
+              max: 2500,
               tickNumber: 3,
             },
           ]}
@@ -86,6 +82,4 @@ const Chart = () => {
       </div>
     </React.Fragment>
   );
-};
-
-export default Chart;
+}

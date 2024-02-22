@@ -68,7 +68,6 @@ const Financials = () => {
       if (response.ok) {
         // Data successfully submitted
         alert("Expenditure added successfully");
-        navigate("/")
       } else {
         // Handle error response
         alert("Error adding expenditure");

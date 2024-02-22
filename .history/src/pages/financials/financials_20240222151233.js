@@ -10,7 +10,6 @@ import {
   Button,
   createTheme,
 } from "@mui/material";
-import { useNavigate } from "react-router-dom";
 
 const defaultTheme = createTheme();
 
@@ -68,7 +67,6 @@ const Financials = () => {
       if (response.ok) {
         // Data successfully submitted
         alert("Expenditure added successfully");
-        navigate("/")
       } else {
         // Handle error response
         alert("Error adding expenditure");

@@ -14,7 +14,7 @@ const Chart = () => {
         const response = await fetch("http://127.0.0.1:8000/api/expenditure/");
         if (response.ok) {
           const data = await response.json();
-          console.log(data);
+          console.log(data)
           setExpenditureData(data);
         } else {
           console.error("Failed to fetch expenditure data");
