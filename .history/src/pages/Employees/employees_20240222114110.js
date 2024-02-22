@@ -14,7 +14,7 @@ const columns = [
   { id: "name", label: "Name", minWidth: 170 },
   { id: "phone_number", label: "Phone Number", minWidth: 100 },
   { id: "position", label: "Position", minWidth: 170 },
-  { id: "salary", label: "Salary", minWidth: 170,},
+  { id: "salary", label: "Salary", minWidth: 170, align: "right" },
   { id: "performance", label: "Performance", minWidth: 170 },
 ];
 
@@ -34,10 +34,7 @@ export default function Employees() {
             `http://127.0.0.1:8000/api/employees/?user_token=${userToken}`
           );
           const data = await response.json();
-
-          const getUserDataByToken = data.filter((user) => user.user_token === userToken);
-          
-          setEmployeeData(getUserDataByToken);
+          setEmployeeData(data);
         } catch (error) {
           console.error("Error fetching employee data", error);
         }
