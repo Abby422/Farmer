@@ -19,7 +19,6 @@ function AddEmployee() {
   const navigate = useNavigate();
 
   const [formData, setFormData] = useState({});
-  const [error, setError] = useState(null);
 
   const handleChange = (e) => {
     const { name, value } = e.target;

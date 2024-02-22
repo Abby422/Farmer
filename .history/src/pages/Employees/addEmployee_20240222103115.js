@@ -8,18 +8,23 @@ import {
   Grid,
   TextField,
   Button,
-  createTheme,
+  createTheme
 } from "@mui/material";
-import { useNavigate } from "react-router-dom";
+
 
 function AddEmployee() {
-  const defaultTheme = createTheme();
-  const { key } = JSON.parse(localStorage.getItem("user"));
 
-  const navigate = useNavigate();
-
-  const [formData, setFormData] = useState({});
-  const [error, setError] = useState(null);
+  const defaultTheme = createTheme()
+  const { key } = localStorage.getItem('user');
+  console.log(key);
+  const [formData, setFormData] = useState({
+    name: "",
+    phoneNumber: "",
+    position: "",
+    salary: "",
+    performance: "",
+    user_token: "",
+  });
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -32,37 +37,25 @@ function AddEmployee() {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    // Check for empty fields
-    const emptyFields = Object.keys(formData).filter((key) => !formData[key]);
+    try {
+      const response = await fetch("http://127.0.0.1:8000/api/employees/", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(formData),
+      });
 
-    if (emptyFields.length > 0) {
-      setError(`Please fill in all fields: ${emptyFields.join(", ")}`);
-      return;
+      if (response.ok) {
+        // Data successfully submitted
+        console.log("Employee added successfully");
+      } else {
+        // Handle error response
+        console.error("Error adding employee");
+      }
+    } catch (error) {
+      console.error("Error adding employee", error);
     }
-
-    setError(null);
-
-    const raw = {
-      ...formData,
-      user_token: key,
-    };
-
-    const myHeaders = new Headers();
-    myHeaders.append("Content-Type", "application/json");
-
-    const requestOptions = {
-      method: "POST",
-      headers: myHeaders,
-      body: JSON.stringify(raw),
-      redirect: "follow",
-    };
-
-    fetch("http://127.0.0.1:8000/api/employees/", requestOptions)
-      .then((response) => response.json())
-      .then((result) => {
-        result && navigate("/employees");
-      })
-      .catch((error) => alert(error));
   };
 
   return (
@@ -86,11 +79,6 @@ function AddEmployee() {
             <Typography component="h1" variant="h5">
               Add Employee
             </Typography>
-            {error && (
-              <Typography color="error" variant="subtitle2">
-                {error}
-              </Typography>
-            )}
             <Grid container spacing={2}>
               <Grid item xs={12}>
                 <TextField
@@ -104,11 +92,11 @@ function AddEmployee() {
               </Grid>
               <Grid item xs={12}>
                 <TextField
-                  name="phone_number"
+                  name="phoneNumber"
                   required
                   fullWidth
                   label="Phone Number"
-                  value={formData.phone_number}
+                  value={formData.phoneNumber}
                   onChange={handleChange}
                 />
               </Grid>
@@ -133,7 +121,6 @@ function AddEmployee() {
                   onChange={handleChange}
                 />
               </Grid>
-
               <Grid item xs={12}>
                 <TextField
                   name="performance"

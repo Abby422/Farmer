@@ -17,6 +17,7 @@ const ViewInventory = () => {
     machines: [],
     livestock: [],
   });
+  const theme = useTheme();
 
   const handleFilter = (inventoryType) => {
     setCurrentInventory(inventoryType);

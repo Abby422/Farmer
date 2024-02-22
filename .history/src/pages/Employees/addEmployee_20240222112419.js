@@ -16,10 +16,9 @@ function AddEmployee() {
   const defaultTheme = createTheme();
   const { key } = JSON.parse(localStorage.getItem("user"));
 
-  const navigate = useNavigate();
+  const navigate = useNavigate()
 
   const [formData, setFormData] = useState({});
-  const [error, setError] = useState(null);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -32,20 +31,11 @@ function AddEmployee() {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    // Check for empty fields
-    const emptyFields = Object.keys(formData).filter((key) => !formData[key]);
-
-    if (emptyFields.length > 0) {
-      setError(`Please fill in all fields: ${emptyFields.join(", ")}`);
-      return;
-    }
-
-    setError(null);
-
     const raw = {
       ...formData,
-      user_token: key,
-    };
+      'user_token': key
+    }
+
 
     const myHeaders = new Headers();
     myHeaders.append("Content-Type", "application/json");
@@ -60,9 +50,9 @@ function AddEmployee() {
     fetch("http://127.0.0.1:8000/api/employees/", requestOptions)
       .then((response) => response.json())
       .then((result) => {
-        result && navigate("/employees");
+        navigate("/employees")
       })
-      .catch((error) => alert(error));
+      .catch((error) => console.error(error));
   };
 
   return (
@@ -86,11 +76,6 @@ function AddEmployee() {
             <Typography component="h1" variant="h5">
               Add Employee
             </Typography>
-            {error && (
-              <Typography color="error" variant="subtitle2">
-                {error}
-              </Typography>
-            )}
             <Grid container spacing={2}>
               <Grid item xs={12}>
                 <TextField
@@ -133,7 +118,7 @@ function AddEmployee() {
                   onChange={handleChange}
                 />
               </Grid>
-
+             
               <Grid item xs={12}>
                 <TextField
                   name="performance"
