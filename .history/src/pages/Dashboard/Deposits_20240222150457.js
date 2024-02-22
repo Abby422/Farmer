@@ -27,7 +27,7 @@ export default function Deposits() {
         const response = await fetch("http://127.0.0.1:8000/api/income/");
         if (response.ok) {
           const data = await response.json();
-          console.log(data);
+          console.log(data)
           setIncomeTransactions(data);
         } else {
           console.error("Failed to fetch income data");
@@ -88,25 +88,19 @@ export default function Deposits() {
     handleCloseModal();
   };
 
-  const getTotalIncome = () => {
-    return incomeTransactions.reduce(
-      (total, transaction) => total + parseFloat(transaction.amount),
-      0
-    );
-  };
+const getTotalIncome = () => {
+  return incomeTransactions.reduce(
+    (total, transaction) => total + parseFloat(transaction.amount),
+    0
+  );
+};
 
-  function getCurrentDate() {
-    return new Date().toUTCString();
-  }
 
   return (
     <React.Fragment>
       <Title>Income</Title>
       <Typography component="p" variant="h4">
-        ${getTotalIncome().toFixed(2)}
-      </Typography>
-      <Typography color="text.secondary" sx={{ flex: 1 }}>
-        on {getCurrentDate()}
+        ${getTotalIncome().toFixed(2)}}
       </Typography>
       <div>
         <Button color="primary" href="#" onClick={handleOpenModal}>

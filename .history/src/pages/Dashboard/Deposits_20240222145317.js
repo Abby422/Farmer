@@ -17,28 +17,10 @@ export default function Deposits() {
     amount: null,
     date: null,
   });
-  const [incomeTransactions, setIncomeTransactions] = useState([]);
+  const [totalIncome, setTotalIncome] = useState(0);
   const [error, setError] = useState(null);
 
-  useEffect(() => {
-    // Fetch income data from the API
-    const fetchData = async () => {
-      try {
-        const response = await fetch("http://127.0.0.1:8000/api/income/");
-        if (response.ok) {
-          const data = await response.json();
-          console.log(data);
-          setIncomeTransactions(data);
-        } else {
-          console.error("Failed to fetch income data");
-        }
-      } catch (error) {
-        console.error("Error during income data fetching:", error);
-      }
-    };
-
-    fetchData();
-  }, []);
+  const { key } = JSON.parse(localStorage.getItem("user"));
 
   const handleOpenModal = () => {
     setOpenModal(true);
@@ -74,36 +56,63 @@ export default function Deposits() {
 
     setError(null);
 
-    // Add the new income transaction to the list
-    setIncomeTransactions((prevTransactions) => [
-      ...prevTransactions,
-      {
-        description: incomeData.description,
-        amount: parseFloat(incomeData.amount),
-        date: incomeData.date,
-      },
-    ]);
+    const raw = {
+      ...incomeData,
+      user_token: key,
+    };
+    try {
+      const response = await fetch("http://127.0.0.1:8000/api/income/", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(raw),
+      });
 
-    // Close the modal after successful submission
-    handleCloseModal();
+      if (response.ok) {
+        alert("Income added successfully");
+        // Close the modal after successful submission
+        handleCloseModal();
+        // Fetch and update total income
+        fetchTotalIncome();
+      } else {
+        alert("Failed to add income");
+      }
+    } catch (error) {
+      console.error("Error during income submission:", error);
+    }
   };
 
-  const getTotalIncome = () => {
-    return incomeTransactions.reduce(
-      (total, transaction) => total + parseFloat(transaction.amount),
-      0
-    );
+  const getCurrentDate = () => {
+    return new Date().toISOString().split("T")[0];
   };
 
-  function getCurrentDate() {
-    return new Date().toUTCString();
-  }
+  const fetchTotalIncome = async () => {
+    try {
+      const response = await fetch(
+        `http://127.0.0.1:8000/api/income/total/${key}`
+      );
+      if (response.ok) {
+        const data = await response.json();
+        setTotalIncome(data.total);
+      } else {
+        console.error("Failed to fetch total income");
+      }
+    } catch (error) {
+      console.error("Error during total income fetching:", error);
+    }
+  };
+
+  useEffect(() => {
+    // Fetch total income on component mount
+    fetchTotalIncome();
+  }, [key]);
 
   return (
     <React.Fragment>
       <Title>Income</Title>
       <Typography component="p" variant="h4">
-        ${getTotalIncome().toFixed(2)}
+        ${totalIncome.toFixed(2)}
       </Typography>
       <Typography color="text.secondary" sx={{ flex: 1 }}>
         on {getCurrentDate()}
