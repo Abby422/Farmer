@@ -43,7 +43,7 @@ const ViewInventory = () => {
           [currentInventory]: data,
         }));
       } else {
-       alert("Failed to fetch inventory data");
+        console.error("Failed to fetch inventory data");
       }
     } catch (error) {
       console.error("Error during inventory data fetching:", error);
@@ -84,9 +84,9 @@ const ViewInventory = () => {
           ),
         };
         setInventoryData(updatedInventory);
-        alert("Item deleted successfully");
+        console.log("Item deleted successfully");
       } else {
-        alert("Failed to delete item");
+        console.error("Failed to delete item");
       }
     } catch (error) {
       console.error("Error deleting item:", error);
@@ -184,9 +184,7 @@ const ViewInventory = () => {
                   <TableCell>Animal Type</TableCell>
                   <TableCell>Age</TableCell>
                   <TableCell>Breed</TableCell>
-                  <TableCell>Weight</TableCell>
-                  <TableCell>Purchase Price</TableCell>
-                  <TableCell>Purchase Date</TableCell>
+                  <TableCell>More Details</TableCell>
                   <TableCell>Actions</TableCell>
                 </>
               )}
@@ -198,9 +196,10 @@ const ViewInventory = () => {
                 {currentInventory === "machines" && (
                   <>
                     <TableCell>{item.plate_number}</TableCell>
-                    <TableCell>{item.equipment_name}</TableCell>
+                    <TableCell>{item.equipement_name}</TableCell>
                     <TableCell>{item.purchase_price}</TableCell>
                     <TableCell>{item.purchase_date}</TableCell>
+                    <TableCell>{item.operation}</TableCell>
                     <TableCell>
                       <Button
                         variant="contained"
@@ -221,13 +220,11 @@ const ViewInventory = () => {
                 )}
                 {currentInventory === "livestock" && (
                   <>
-                    <TableCell>{item.tag_number}</TableCell>
-                    <TableCell>{item.animal_type}</TableCell>
+                    <TableCell>{item.tagNumber}</TableCell>
+                    <TableCell>{item.animalType}</TableCell>
                     <TableCell>{item.age}</TableCell>
                     <TableCell>{item.breed}</TableCell>
-                    <TableCell>{item.weight}</TableCell>
-                    <TableCell>{item.purchase_date}</TableCell>
-                    <TableCell>{item.purchase_date}</TableCell>
+                    <TableCell>{item.moreDetails}</TableCell>
                     <TableCell>
                       <Button
                         variant="contained"
@@ -257,13 +254,7 @@ const ViewInventory = () => {
       <Dialog open={openDialog} onClose={handleCloseDialog}>
         <DialogTitle>Update Item</DialogTitle>
         <DialogContent>
-          <Grid
-            container
-            spacing={2}
-            style={{
-              marginTop: "10px",
-            }}
-          >
+          <Grid container spacing={2}>
             {currentInventory === "machines" && (
               <>
                 <Grid item xs={12}>
@@ -304,6 +295,7 @@ const ViewInventory = () => {
                     name="purchase_date"
                   />
                 </Grid>
+              
               </>
             )}
             {currentInventory === "livestock" && (
@@ -312,18 +304,18 @@ const ViewInventory = () => {
                   <TextField
                     label="Tag Number"
                     fullWidth
-                    value={selectedItem?.tag_number || ""}
+                    value={selectedItem?.tagNumber || ""}
                     onChange={handleInputChange}
-                    name="tag_number"
+                    name="tagNumber"
                   />
                 </Grid>
                 <Grid item xs={12}>
                   <TextField
                     label="Animal Type"
                     fullWidth
-                    value={selectedItem?.animal_type || ""}
+                    value={selectedItem?.animalType || ""}
                     onChange={handleInputChange}
-                    name="animal_type"
+                    name="animalType"
                   />
                 </Grid>
                 <Grid item xs={12}>
@@ -346,11 +338,11 @@ const ViewInventory = () => {
                 </Grid>
                 <Grid item xs={12}>
                   <TextField
-                    label="Weight"
+                    label="More Details"
                     fullWidth
-                    value={selectedItem?.weight || ""}
+                    value={selectedItem?.moreDetails || ""}
                     onChange={handleInputChange}
-                    name="weight"
+                    name="moreDetails"
                   />
                 </Grid>
               </>

@@ -24,7 +24,7 @@ function Inventory() {
     plate_number: "",
     equipment_name: "",
     purchase_price: "",
-    purchaseDate: "",
+    purchase_date: "",
   });
 
   const handleChange = (event) => {
@@ -70,7 +70,6 @@ function Inventory() {
     fetch("http://127.0.0.1:8000/api/machinery/", requestOptions)
       .then((response) => response.json())
       .then((result) => {
-        console.log(result);
         result && navigate("/viewInventory");
       })
       .catch((error) => alert(error));
@@ -141,14 +140,14 @@ function Inventory() {
                 <TextField
                   required
                   fullWidth
-                  id="purchaseDate"
+                  id="purchase_date"
                   label="Purchase Date"
-                  name="purchaseDate"
+                  name="purchase_date"
                   type="date"
                   InputLabelProps={{
                     shrink: true,
                   }}
-                  value={formValues.purchaseDate}
+                  value={formValues.purchase_date}
                   onChange={handleChange}
                 />
               </Grid>

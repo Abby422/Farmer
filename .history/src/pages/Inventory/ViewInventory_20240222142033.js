@@ -43,7 +43,7 @@ const ViewInventory = () => {
           [currentInventory]: data,
         }));
       } else {
-       alert("Failed to fetch inventory data");
+        console.error("Failed to fetch inventory data");
       }
     } catch (error) {
       console.error("Error during inventory data fetching:", error);
@@ -84,9 +84,9 @@ const ViewInventory = () => {
           ),
         };
         setInventoryData(updatedInventory);
-        alert("Item deleted successfully");
+        console.log("Item deleted successfully");
       } else {
-        alert("Failed to delete item");
+        console.error("Failed to delete item");
       }
     } catch (error) {
       console.error("Error deleting item:", error);

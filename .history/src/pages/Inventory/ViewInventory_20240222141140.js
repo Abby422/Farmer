@@ -43,7 +43,7 @@ const ViewInventory = () => {
           [currentInventory]: data,
         }));
       } else {
-       alert("Failed to fetch inventory data");
+        console.error("Failed to fetch inventory data");
       }
     } catch (error) {
       console.error("Error during inventory data fetching:", error);
@@ -84,9 +84,9 @@ const ViewInventory = () => {
           ),
         };
         setInventoryData(updatedInventory);
-        alert("Item deleted successfully");
+        console.log("Item deleted successfully");
       } else {
-        alert("Failed to delete item");
+        console.error("Failed to delete item");
       }
     } catch (error) {
       console.error("Error deleting item:", error);
@@ -175,6 +175,7 @@ const ViewInventory = () => {
                   <TableCell>Equipment Name</TableCell>
                   <TableCell>Purchase Price</TableCell>
                   <TableCell>Purchase Date</TableCell>
+                  <TableCell>Operation</TableCell>
                   <TableCell>Actions</TableCell>
                 </>
               )}
@@ -184,9 +185,7 @@ const ViewInventory = () => {
                   <TableCell>Animal Type</TableCell>
                   <TableCell>Age</TableCell>
                   <TableCell>Breed</TableCell>
-                  <TableCell>Weight</TableCell>
-                  <TableCell>Purchase Price</TableCell>
-                  <TableCell>Purchase Date</TableCell>
+                  <TableCell>More Details</TableCell>
                   <TableCell>Actions</TableCell>
                 </>
               )}
@@ -197,10 +196,11 @@ const ViewInventory = () => {
               <TableRow key={item.id}>
                 {currentInventory === "machines" && (
                   <>
-                    <TableCell>{item.plate_number}</TableCell>
-                    <TableCell>{item.equipment_name}</TableCell>
-                    <TableCell>{item.purchase_price}</TableCell>
-                    <TableCell>{item.purchase_date}</TableCell>
+                    <TableCell>{item.plateNumber}</TableCell>
+                    <TableCell>{item.equipmentName}</TableCell>
+                    <TableCell>{item.purchasePrice}</TableCell>
+                    <TableCell>{item.purchaseDate}</TableCell>
+                    <TableCell>{item.operation}</TableCell>
                     <TableCell>
                       <Button
                         variant="contained"
@@ -221,13 +221,11 @@ const ViewInventory = () => {
                 )}
                 {currentInventory === "livestock" && (
                   <>
-                    <TableCell>{item.tag_number}</TableCell>
-                    <TableCell>{item.animal_type}</TableCell>
+                    <TableCell>{item.tagNumber}</TableCell>
+                    <TableCell>{item.animalType}</TableCell>
                     <TableCell>{item.age}</TableCell>
                     <TableCell>{item.breed}</TableCell>
-                    <TableCell>{item.weight}</TableCell>
-                    <TableCell>{item.purchase_date}</TableCell>
-                    <TableCell>{item.purchase_date}</TableCell>
+                    <TableCell>{item.moreDetails}</TableCell>
                     <TableCell>
                       <Button
                         variant="contained"
@@ -257,40 +255,34 @@ const ViewInventory = () => {
       <Dialog open={openDialog} onClose={handleCloseDialog}>
         <DialogTitle>Update Item</DialogTitle>
         <DialogContent>
-          <Grid
-            container
-            spacing={2}
-            style={{
-              marginTop: "10px",
-            }}
-          >
+          <Grid container spacing={2}>
             {currentInventory === "machines" && (
               <>
                 <Grid item xs={12}>
                   <TextField
                     label="Plate Number"
                     fullWidth
-                    value={selectedItem?.plate_number || ""}
+                    value={selectedItem?.plateNumber || ""}
                     onChange={handleInputChange}
-                    name="plate_number"
+                    name="plateNumber"
                   />
                 </Grid>
                 <Grid item xs={12}>
                   <TextField
                     label="Equipment Name"
                     fullWidth
-                    value={selectedItem?.equipement_name || ""}
+                    value={selectedItem?.equipmentName || ""}
                     onChange={handleInputChange}
-                    name="equipement_name"
+                    name="equipmentName"
                   />
                 </Grid>
                 <Grid item xs={12}>
                   <TextField
                     label="Purchase Price"
                     fullWidth
-                    value={selectedItem?.purchase_price || ""}
+                    value={selectedItem?.purchasePrice || ""}
                     onChange={handleInputChange}
-                    name="purchase_price"
+                    name="purchasePrice"
                   />
                 </Grid>
                 <Grid item xs={12}>
@@ -299,9 +291,18 @@ const ViewInventory = () => {
                     fullWidth
                     type="date"
                     InputLabelProps={{ shrink: true }}
-                    value={selectedItem?.purchase_date || ""}
+                    value={selectedItem?.purchaseDate || ""}
                     onChange={handleInputChange}
-                    name="purchase_date"
+                    name="purchaseDate"
+                  />
+                </Grid>
+                <Grid item xs={12}>
+                  <TextField
+                    label="Operation"
+                    fullWidth
+                    value={selectedItem?.operation || ""}
+                    onChange={handleInputChange}
+                    name="operation"
                   />
                 </Grid>
               </>
@@ -312,18 +313,18 @@ const ViewInventory = () => {
                   <TextField
                     label="Tag Number"
                     fullWidth
-                    value={selectedItem?.tag_number || ""}
+                    value={selectedItem?.tagNumber || ""}
                     onChange={handleInputChange}
-                    name="tag_number"
+                    name="tagNumber"
                   />
                 </Grid>
                 <Grid item xs={12}>
                   <TextField
                     label="Animal Type"
                     fullWidth
-                    value={selectedItem?.animal_type || ""}
+                    value={selectedItem?.animalType || ""}
                     onChange={handleInputChange}
-                    name="animal_type"
+                    name="animalType"
                   />
                 </Grid>
                 <Grid item xs={12}>
@@ -346,11 +347,11 @@ const ViewInventory = () => {
                 </Grid>
                 <Grid item xs={12}>
                   <TextField
-                    label="Weight"
+                    label="More Details"
                     fullWidth
-                    value={selectedItem?.weight || ""}
+                    value={selectedItem?.moreDetails || ""}
                     onChange={handleInputChange}
-                    name="weight"
+                    name="moreDetails"
                   />
                 </Grid>
               </>

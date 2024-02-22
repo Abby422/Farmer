@@ -43,7 +43,7 @@ const ViewInventory = () => {
           [currentInventory]: data,
         }));
       } else {
-       alert("Failed to fetch inventory data");
+        console.error("Failed to fetch inventory data");
       }
     } catch (error) {
       console.error("Error during inventory data fetching:", error);
@@ -84,9 +84,9 @@ const ViewInventory = () => {
           ),
         };
         setInventoryData(updatedInventory);
-        alert("Item deleted successfully");
+        console.log("Item deleted successfully");
       } else {
-        alert("Failed to delete item");
+        console.error("Failed to delete item");
       }
     } catch (error) {
       console.error("Error deleting item:", error);
@@ -198,7 +198,7 @@ const ViewInventory = () => {
                 {currentInventory === "machines" && (
                   <>
                     <TableCell>{item.plate_number}</TableCell>
-                    <TableCell>{item.equipment_name}</TableCell>
+                    <TableCell>{item.equipement_name}</TableCell>
                     <TableCell>{item.purchase_price}</TableCell>
                     <TableCell>{item.purchase_date}</TableCell>
                     <TableCell>
@@ -257,13 +257,7 @@ const ViewInventory = () => {
       <Dialog open={openDialog} onClose={handleCloseDialog}>
         <DialogTitle>Update Item</DialogTitle>
         <DialogContent>
-          <Grid
-            container
-            spacing={2}
-            style={{
-              marginTop: "10px",
-            }}
-          >
+          <Grid container spacing={2}>
             {currentInventory === "machines" && (
               <>
                 <Grid item xs={12}>
