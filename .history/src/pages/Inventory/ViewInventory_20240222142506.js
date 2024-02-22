@@ -120,11 +120,11 @@ const ViewInventory = () => {
 
       if (response.ok) {
         setOpenDialog(false);
-        alert("Item updated successfully");
+        console.log("Item updated successfully");
         // Refresh the data after update
         fetchData();
       } else {
-        alert("Failed to update item");
+        console.error("Failed to update item");
       }
     } catch (error) {
       console.error("Error updating item:", error);

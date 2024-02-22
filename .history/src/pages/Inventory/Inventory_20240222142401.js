@@ -24,7 +24,7 @@ function Inventory() {
     plate_number: "",
     equipment_name: "",
     purchase_price: "",
-    purchase_date: "",
+    purchase_Date: "",
   });
 
   const handleChange = (event) => {
@@ -141,14 +141,14 @@ function Inventory() {
                 <TextField
                   required
                   fullWidth
-                  id="purchase_date"
+                  id="purchase_Date"
                   label="Purchase Date"
-                  name="purchase_date"
+                  name="purchase_Date"
                   type="date"
                   InputLabelProps={{
                     shrink: true,
                   }}
-                  value={formValues.purchase_date}
+                  value={formValues.purchase_Date}
                   onChange={handleChange}
                 />
               </Grid>
