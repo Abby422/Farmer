@@ -10,17 +10,10 @@ import {
   Typography,
 } from "@mui/material";
 import { ThemeProvider } from "@emotion/react";
-import { useNavigate } from "react-router-dom";
 
 const defaultTheme = createTheme();
 
 function LivestockInventory() {
-    const { key } = JSON.parse(localStorage.getItem("user"));
-
-    const navigate = useNavigate();
-
-    const [error, setError] = useState(null);
-
   const [formValues, setFormValues] = useState({
     tagNumber: "",
     animalType: "",

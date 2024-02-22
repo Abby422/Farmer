@@ -10,17 +10,10 @@ import {
   Typography,
 } from "@mui/material";
 import { ThemeProvider } from "@emotion/react";
-import { useNavigate } from "react-router-dom";
 
 const defaultTheme = createTheme();
 
 function LivestockInventory() {
-    const { key } = JSON.parse(localStorage.getItem("user"));
-
-    const navigate = useNavigate();
-
-    const [error, setError] = useState(null);
-
   const [formValues, setFormValues] = useState({
     tagNumber: "",
     animalType: "",
@@ -39,41 +32,43 @@ function LivestockInventory() {
     }));
   };
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
+  const handleSubmit = async (event) => {
+    event.preventDefault();
 
-    // Check for empty fields
-    const emptyFields = Object.keys(formValues).filter((key) => !formValues[key]);
+    // Check if required fields are filled in
+    const requiredFields = [
+      "tagNumber",
+      "animalType",
+      "age",
+      "breed",
+      "weight",
+      "purchaseDate",
+      "purchasePrice",
+    ];
+    const missingFields = requiredFields.filter((field) => !formValues[field]);
 
-    if (emptyFields.length > 0) {
-      setError(`Please fill in all fields: ${emptyFields.join(", ")}`);
+    if (missingFields.length > 0) {
+      console.error(`Missing required fields: ${missingFields.join(", ")}`);
       return;
     }
 
-    setError(null);
+    try {
+      const response = await fetch("http://127.0.0.1:8000/api/livestocks/", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(formValues),
+      });
 
-    const raw = {
-      ...formValues,
-      user_token: key,
-    };
-
-    const myHeaders = new Headers();
-    myHeaders.append("Content-Type", "application/json");
-
-    const requestOptions = {
-      method: "POST",
-      headers: myHeaders,
-      body: JSON.stringify(raw),
-      redirect: "follow",
-    };
-
-    console.log(raw);
-    fetch("http://127.0.0.1:8000/api/crops/", requestOptions)
-      .then((response) => response.json())
-      .then((result) => {
-        result && navigate("/view");
-      })
-      .catch((error) => alert(error));
+      if (response.ok) {
+        console.log("Livestock added successfully!");
+      } else {
+        console.error("Failed to add livestock");
+      }
+    } catch (error) {
+      console.error("Error during livestock addition:", error);
+    }
   };
 
   return (
@@ -97,11 +92,6 @@ function LivestockInventory() {
             <Typography component="h1" variant="h5">
               Add Livestock
             </Typography>
-            {error && (
-              <Typography color="error" variant="subtitle2">
-                {error}
-              </Typography>
-            )}
             <Grid container spacing={2}>
               <Grid item xs={12} sm={6}>
                 <TextField
@@ -187,6 +177,7 @@ function LivestockInventory() {
                   onChange={handleChange}
                 />
               </Grid>
+              
             </Grid>
             <Button
               type="submit"

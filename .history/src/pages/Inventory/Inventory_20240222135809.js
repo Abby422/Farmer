@@ -12,23 +12,19 @@ import {
 import { ThemeProvider } from "@emotion/react";
 import { useNavigate } from "react-router-dom";
 
+
 const defaultTheme = createTheme();
 
-function LivestockInventory() {
-    const { key } = JSON.parse(localStorage.getItem("user"));
-
+function Inventory() {
+  const { key } = JSON.parse(localStorage.getItem("user"));
     const navigate = useNavigate();
 
-    const [error, setError] = useState(null);
 
   const [formValues, setFormValues] = useState({
-    tagNumber: "",
-    animalType: "",
-    age: "",
-    breed: "",
-    weight: "",
-    purchaseDate: "",
+    plateNumber: "",
+    equipmentName: "",
     purchasePrice: "",
+    purchaseDate: "",
   });
 
   const handleChange = (event) => {
@@ -38,6 +34,9 @@ function LivestockInventory() {
       [name]: value,
     }));
   };
+
+
+  const [error, setError] = useState(null);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -68,10 +67,11 @@ function LivestockInventory() {
     };
 
     console.log(raw);
-    fetch("http://127.0.0.1:8000/api/crops/", requestOptions)
+    fetch("http://127.0.0.1:8000/api/machinery/", requestOptions)
       .then((response) => response.json())
       .then((result) => {
-        result && navigate("/view");
+        console.log(result);
+        result && navigate("/viewInventory");
       })
       .catch((error) => alert(error));
   };
@@ -92,86 +92,36 @@ function LivestockInventory() {
             component="form"
             onSubmit={handleSubmit}
             noValidate
-            sx={{ mt: 1 }}
+            sx={{ mt: 5 }}
           >
             <Typography component="h1" variant="h5">
-              Add Livestock
+              Add Machine
             </Typography>
             {error && (
               <Typography color="error" variant="subtitle2">
                 {error}
               </Typography>
-            )}
+            )}  
             <Grid container spacing={2}>
-              <Grid item xs={12} sm={6}>
+              <Grid item xs={12}>
                 <TextField
                   required
                   fullWidth
-                  id="tagNumber"
-                  label="Tag Number"
-                  name="tagNumber"
-                  value={formValues.tagNumber}
+                  id="plateNumber"
+                  label="Plate Number"
+                  name="plateNumber"
+                  value={formValues.plateNumber}
                   onChange={handleChange}
                 />
               </Grid>
-              <Grid item xs={12} sm={6}>
+              <Grid item xs={12}>
                 <TextField
                   required
                   fullWidth
-                  id="animalType"
-                  label="Animal Type"
-                  name="animalType"
-                  value={formValues.animalType}
-                  onChange={handleChange}
-                />
-              </Grid>
-              <Grid item xs={12} sm={6}>
-                <TextField
-                  required
-                  fullWidth
-                  id="age"
-                  label="Age"
-                  name="age"
-                  type="number"
-                  value={formValues.age}
-                  onChange={handleChange}
-                />
-              </Grid>
-              <Grid item xs={12} sm={6}>
-                <TextField
-                  required
-                  fullWidth
-                  id="breed"
-                  label="Breed"
-                  name="breed"
-                  value={formValues.breed}
-                  onChange={handleChange}
-                />
-              </Grid>
-              <Grid item xs={12} sm={6}>
-                <TextField
-                  required
-                  fullWidth
-                  id="weight"
-                  label="Weight"
-                  name="weight"
-                  type="number"
-                  value={formValues.weight}
-                  onChange={handleChange}
-                />
-              </Grid>
-              <Grid item xs={12} sm={6}>
-                <TextField
-                  required
-                  fullWidth
-                  id="purchaseDate"
-                  label="Purchase Date"
-                  name="purchaseDate"
-                  type="date"
-                  InputLabelProps={{
-                    shrink: true,
-                  }}
-                  value={formValues.purchaseDate}
+                  id="equipmentName"
+                  label="Equipment Name"
+                  name="equipmentName"
+                  value={formValues.equipmentName}
                   onChange={handleChange}
                 />
               </Grid>
@@ -184,6 +134,21 @@ function LivestockInventory() {
                   name="purchasePrice"
                   type="number"
                   value={formValues.purchasePrice}
+                  onChange={handleChange}
+                />
+              </Grid>
+              <Grid item xs={12}>
+                <TextField
+                  required
+                  fullWidth
+                  id="purchaseDate"
+                  label="Purchase Date"
+                  name="purchaseDate"
+                  type="date"
+                  InputLabelProps={{
+                    shrink: true,
+                  }}
+                  value={formValues.purchaseDate}
                   onChange={handleChange}
                 />
               </Grid>
@@ -203,4 +168,4 @@ function LivestockInventory() {
   );
 }
 
-export default LivestockInventory;
+export default Inventory;
