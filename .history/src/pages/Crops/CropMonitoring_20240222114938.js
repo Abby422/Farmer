@@ -10,25 +10,18 @@ import {
   Typography,
 } from "@mui/material";
 import { ThemeProvider } from "@emotion/react";
-import { useNavigate } from "react-router-dom";
-
-
 
 const defaultTheme = createTheme();
 
 function CropMonitoring() {
-  const { key } = JSON.parse(localStorage.getItem("user"));
-
-  const navigate = useNavigate();
-
   const [formData, setFormData] = useState({
-    name: "",
+    fieldName: "",
+    fieldDescription: "",
+    cropName: "",
     variety: "",
-    planting_date: "",
-    harvest_date: "",
+    plantingDate: "",
+    harvestingDate: "",
   });
-
-  const [error, setError] = useState(null);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -38,38 +31,32 @@ function CropMonitoring() {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    // Check for empty fields
-    const emptyFields = Object.keys(formData).filter((key) => !formData[key]);
+    try {
+      const response = await fetch("http://127.0.0.1:8000/api/crops/", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(formData),
+      });
 
-    if (emptyFields.length > 0) {
-      setError(`Please fill in all fields: ${emptyFields.join(", ")}`);
-      return;
+      if (response.ok) {
+        console.log("Crop added successfully");
+        // Reset form fields
+        setFormData({
+          fieldName: "",
+          fieldDescription: "",
+          cropName: "",
+          variety: "",
+          plantingDate: "",
+          harvestingDate: "",
+        });
+      } else {
+        console.error("Failed to add crop");
+      }
+    } catch (error) {
+      console.error("Error adding crop:", error);
     }
-
-    setError(null);
-
-    const raw = {
-      ...formData,
-      user_token: key,
-    };
-
-    const myHeaders = new Headers();
-    myHeaders.append("Content-Type", "application/json");
-
-    const requestOptions = {
-      method: "POST",
-      headers: myHeaders,
-      body: JSON.stringify(raw),
-      redirect: "follow",
-    };
-
-    console.log(raw);
-    fetch("http://127.0.0.1:8000/api/crops/", requestOptions)
-      .then((response) => response.json())
-      .then((result) => {
-        result && navigate("/view");
-      })
-      .catch((error) => alert(error));
   };
 
   return (
@@ -87,27 +74,40 @@ function CropMonitoring() {
           <Box
             component="form"
             noValidate
-            sx={{ mt: 10 }}
+            sx={{ mt: 1 }}
             onSubmit={handleSubmit}
           >
             <Typography component="h1" variant="h5">
               Add crop
             </Typography>
-            {error && (
-              <Typography color="error" variant="subtitle2">
-                {error}
-              </Typography>
-            )}
             <Grid container spacing={2}>
-           
-             
               <Grid item xs={12}>
                 <TextField
-                  name="name"
+                  name="fieldName"
+                  required
+                  fullWidth
+                  label="Field Name"
+                  value={formData.fieldName}
+                  onChange={handleChange}
+                />
+              </Grid>
+              <Grid item xs={12}>
+                <TextField
+                  name="fieldDescription"
+                  required
+                  fullWidth
+                  label="Field Description"
+                  value={formData.fieldDescription}
+                  onChange={handleChange}
+                />
+              </Grid>
+              <Grid item xs={12}>
+                <TextField
+                  name="cropName"
                   required
                   fullWidth
                   label="Crop Name"
-                  value={formData.name}
+                  value={formData.cropName}
                   onChange={handleChange}
                 />
               </Grid>
@@ -123,12 +123,12 @@ function CropMonitoring() {
               </Grid>
               <Grid item xs={12} sm={6}>
                 <TextField
-                  name="planting_date"
+                  name="plantingDate"
                   required
                   fullWidth
                   label="Planting Date"
                   type="date"
-                  value={formData.planting_date}
+                  value={formData.plantingDate}
                   onChange={handleChange}
                   InputLabelProps={{
                     shrink: true,
@@ -137,12 +137,12 @@ function CropMonitoring() {
               </Grid>
               <Grid item xs={12} sm={6}>
                 <TextField
-                  name="harvest_date"
+                  name="harvestingDate"
                   required
                   fullWidth
                   label="Harvesting Date"
                   type="date"
-                  value={formData.harvest_date}
+                  value={formData.harvestingDate}
                   onChange={handleChange}
                   InputLabelProps={{
                     shrink: true,

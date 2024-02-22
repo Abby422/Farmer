@@ -25,7 +25,7 @@ function CropMonitoring() {
     name: "",
     variety: "",
     planting_date: "",
-    harvest_date: "",
+    harvesting_date: "",
   });
 
   const [error, setError] = useState(null);
@@ -63,11 +63,11 @@ function CropMonitoring() {
       redirect: "follow",
     };
 
-    console.log(raw);
     fetch("http://127.0.0.1:8000/api/crops/", requestOptions)
       .then((response) => response.json())
       .then((result) => {
-        result && navigate("/view");
+        console.log(result);
+        // result && navigate("/view");
       })
       .catch((error) => alert(error));
   };
@@ -137,12 +137,12 @@ function CropMonitoring() {
               </Grid>
               <Grid item xs={12} sm={6}>
                 <TextField
-                  name="harvest_date"
+                  name="harvesting_date"
                   required
                   fullWidth
                   label="Harvesting Date"
                   type="date"
-                  value={formData.harvest_date}
+                  value={formData.harvesting_date}
                   onChange={handleChange}
                   InputLabelProps={{
                     shrink: true,

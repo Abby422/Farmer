@@ -131,8 +131,8 @@ const ViewCrops = () => {
               sx={{
                 minWidth: 275,
                 borderLeft:
-                  crop.planting_date === "2024-02-20" ||
-                  crop.harvest_date === "2024-03-20"
+                  crop.plantingDate === "2024-02-20" ||
+                  crop.harvestingDate === "2024-03-20"
                     ? "4px solid #8bc34a"
                     : "1px solid #ccc",
               }}
@@ -192,11 +192,11 @@ const ViewCrops = () => {
                 fullWidth
                 type="date"
                 InputLabelProps={{ shrink: true }}
-                value={selectedCrop?.planting_date || ""}
+                value={selectedCrop?.plantingDate || ""}
                 onChange={(e) =>
                   setSelectedCrop({
                     ...selectedCrop,
-                    planting_date: e.target.value,
+                    plantingDate: e.target.value,
                   })
                 }
               />
@@ -207,11 +207,11 @@ const ViewCrops = () => {
                 fullWidth
                 type="date"
                 InputLabelProps={{ shrink: true }}
-                value={selectedCrop?.harvest_date || ""}
+                value={selectedCrop?.harvestingDate || ""}
                 onChange={(e) =>
                   setSelectedCrop({
                     ...selectedCrop,
-                    harvest_date: e.target.value,
+                    harvestingDate: e.target.value,
                   })
                 }
               />

@@ -60,59 +60,15 @@ const ViewCrops = () => {
     setSelectedCrop(null);
   };
 
- const handleSaveUpdate = async () => {
-   try {
-     const response = await fetch(
-       `http://127.0.0.1:8000/api/crops/${selectedCrop.id}/`,
-       {
-         method: "PUT",
-         headers: {
-           "Content-Type": "application/json",
-         },
-         body: JSON.stringify(selectedCrop),
-       }
-     );
+  const handleSaveUpdate = () => {
+    console.log("Update values:", selectedCrop);
+    // Close the dialog
+    handleCloseDialog();
+  };
 
-     console.log(response);
-     if (response.ok) {
-       // Update the local state with the updated crop
-       const updatedCrops = crops.map((crop) =>
-         crop.id === selectedCrop.id ? selectedCrop : crop
-       );
-       setCrops(updatedCrops);
-       alert("Crop updated successfully");
-     } else {
-       alert("Failed to update crop");
-     }
-   } catch (error) {
-     console.error("Error updating crop:", error);
-   }
-
-   // Close the dialog
-   handleCloseDialog();
- };
-
- const handleDelete = async (id) => {
-   try {
-     const response = await fetch(`http://127.0.0.1:8000/api/crops/${id}/`, {
-       method: "DELETE",
-       headers: {
-         "Content-Type": "application/json",
-       },
-     });
-
-     if (response.ok) {
-       // Remove the deleted crop from the local state
-       const updatedCrops = crops.filter((crop) => crop.id !== id);
-       setCrops(updatedCrops);
-       console.log("Crop deleted successfully");
-     } else {
-       console.error("Failed to delete crop");
-     }
-   } catch (error) {
-     console.error("Error deleting crop:", error);
-   }
- };
+  const handleDelete = (id) => {
+    console.log("Delete crop with id:", id);
+  };
   return (
     <Box
       sx={{
@@ -131,8 +87,8 @@ const ViewCrops = () => {
               sx={{
                 minWidth: 275,
                 borderLeft:
-                  crop.planting_date === "2024-02-20" ||
-                  crop.harvest_date === "2024-03-20"
+                  crop.plantingDate === "2024-02-20" ||
+                  crop.harvestingDate === "2024-03-20"
                     ? "4px solid #8bc34a"
                     : "1px solid #ccc",
               }}
@@ -146,7 +102,7 @@ const ViewCrops = () => {
                   Planting Date: {crop.planting_date}
                 </Typography>
                 <Typography variant="body2" color="text.secondary">
-                  Harvesting Date: {crop.harvest_date}
+                  Harvesting Date: {crop.harvest_Date}
                 </Typography>
                 <Button
                   onClick={() => handleUpdate(crop)}
@@ -192,11 +148,11 @@ const ViewCrops = () => {
                 fullWidth
                 type="date"
                 InputLabelProps={{ shrink: true }}
-                value={selectedCrop?.planting_date || ""}
+                value={selectedCrop?.plantingDate || ""}
                 onChange={(e) =>
                   setSelectedCrop({
                     ...selectedCrop,
-                    planting_date: e.target.value,
+                    plantingDate: e.target.value,
                   })
                 }
               />
@@ -207,11 +163,11 @@ const ViewCrops = () => {
                 fullWidth
                 type="date"
                 InputLabelProps={{ shrink: true }}
-                value={selectedCrop?.harvest_date || ""}
+                value={selectedCrop?.harvestingDate || ""}
                 onChange={(e) =>
                   setSelectedCrop({
                     ...selectedCrop,
-                    harvest_date: e.target.value,
+                    harvestingDate: e.target.value,
                   })
                 }
               />

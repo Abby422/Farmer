@@ -67,7 +67,8 @@ function CropMonitoring() {
     fetch("http://127.0.0.1:8000/api/crops/", requestOptions)
       .then((response) => response.json())
       .then((result) => {
-        result && navigate("/view");
+        console.log(result);
+        // result && navigate("/view");
       })
       .catch((error) => alert(error));
   };
