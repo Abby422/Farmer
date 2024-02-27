@@ -7,6 +7,8 @@ import Title from "./Title";
 const Chart = () => {
   const theme = useTheme();
   const [expenditureData, setExpenditureData] = useState([]);
+    const userToken = JSON.parse(localStorage.getItem("user"))?.key;
+
 
   useEffect(() => {
     const fetchData = async () => {
@@ -14,8 +16,12 @@ const Chart = () => {
         const response = await fetch("http://127.0.0.1:8000/api/expenditure/");
         if (response.ok) {
           const data = await response.json();
-          console.log(data);
-          setExpenditureData(data);
+
+          const expenditureData = data.filter(
+            (user) => user.user_token === userToken
+          )
+
+          setExpenditureData(expenditureData);
         } else {
           console.error("Failed to fetch expenditure data");
         }

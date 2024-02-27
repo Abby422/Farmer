@@ -19,6 +19,8 @@ export default function Deposits() {
   });
   const [incomeTransactions, setIncomeTransactions] = useState([]);
   const [error, setError] = useState(null);
+    const userToken = JSON.parse(localStorage.getItem("user"))?.key;
+
 
   useEffect(() => {
     // Fetch income data from the API
@@ -27,8 +29,11 @@ export default function Deposits() {
         const response = await fetch("http://127.0.0.1:8000/api/income/");
         if (response.ok) {
           const data = await response.json();
-          console.log(data);
-          setIncomeTransactions(data);
+          
+          const incomeData = data.filter(
+            (user) => user.user_token === userToken
+          );
+          setIncomeTransactions(incomeData);
         } else {
           console.error("Failed to fetch income data");
         }

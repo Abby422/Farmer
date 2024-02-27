@@ -9,13 +9,19 @@ import Title from "./Title";
 const Orders = () => {
   const [incomeData, setIncomeData] = useState([]);
 
+  const userToken = JSON.parse(localStorage.getItem("user"))?.key;
+  
   useEffect(() => {
     const fetchData = async () => {
       try {
         const response = await fetch("http://127.0.0.1:8000/api/income/");
         if (response.ok) {
           const data = await response.json();
-          setIncomeData(data);
+
+          const incomeData = data.filter(
+            (user) => user.user_token === userToken
+          );
+          setIncomeData(incomeData);
         } else {
           console.error("Failed to fetch income data");
         }
