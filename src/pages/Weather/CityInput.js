@@ -31,8 +31,22 @@ const CityInput = (props) => {
     }
   };
 
+  const style = {
+    top: props.city ? "-380px" : "-20px",
+    width: "600px",
+    display: "inline-block",
+    padding: "10px 0px 10px 30px",
+    lineHeight: "120%",
+    position: "relative",
+    borderRadius: "20px",
+    outline: "none",
+    fontSize: "20px",
+    transition: "all 0.5s ease-out",
+  };
+
   return (
     <TextField
+      
       fullWidth
       variant="outlined"
       placeholder="Enter a City..."
@@ -40,7 +54,12 @@ const CityInput = (props) => {
       disabled={loading} // Disable input while loading
       InputProps={{
         style: {
-          top: "-100%",
+          top: props.city ? "-380px" : "-20px",
+          width: "600px",
+          display: "inline-block",
+          padding: "10px 0px 10px 30px",
+          lineHeight: "120%",
+          position: "relative",
           borderRadius: "20px",
           fontSize: "20px",
           transition: "all 0.5s ease-out",

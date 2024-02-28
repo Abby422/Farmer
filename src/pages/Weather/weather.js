@@ -3,12 +3,11 @@ import {
   Container,
   Typography,
   Paper,
-  TextField,
   CircularProgress,
+  TextField,
 } from "@mui/material";
 import MainWeatherWindow from "./MainWeather";
 import WeatherBox from "./WeatherBox";
-import CityInput from "./CityInput";
 
 const App = () => {
   const [weatherData, setWeatherData] = useState({
@@ -18,6 +17,7 @@ const App = () => {
 
   const [inputCity, setInputCity] = useState("London");
   const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(null);
 
   const getDayIndices = (data) => {
     let dayIndices = [0];
@@ -60,6 +60,7 @@ const App = () => {
   const makeApiCall = async () => {
     try {
       setLoading(true);
+      setError(null); // Clear previous errors
       const response = await fetch(
         `https://api.openweathermap.org/data/2.5/forecast?q=${inputCity}&APPID=6557810176c36fac5f0db536711a6c52`
       );
@@ -69,11 +70,19 @@ const App = () => {
         updateState(api_data);
       } else {
         console.error("API call unsuccessful:", api_data);
+        setError("City not found. Please try again.");
       }
     } catch (error) {
       console.error("Error making API call:", error);
+      setError("Error making API call. Please try again.");
     } finally {
       setLoading(false);
+    }
+  };
+
+  const handleKeyPress = (e) => {
+    if (e.key === "Enter") {
+      makeApiCall();
     }
   };
 
@@ -81,7 +90,7 @@ const App = () => {
     if (inputCity.trim() !== "") {
       makeApiCall();
     }
-  }, [inputCity]);
+  }, []);
 
   const WeatherBoxes = () => {
     const weatherBoxes = weatherData.days.slice(1).map((day, index) => (
@@ -101,9 +110,23 @@ const App = () => {
       }}
     >
       <Paper elevation={3} style={{ padding: "20px", marginTop: "40px" }}>
-        {weatherData.city && weatherData.days[0] ? (
+        {weatherData.city !== undefined && weatherData.days[0] !== undefined ? (
           <>
-            <CityInput city={weatherData.city} makeApiCall={makeApiCall} />
+            <TextField
+              fullWidth
+              variant="outlined"
+              label="Enter a City..."
+              value={inputCity}
+              onChange={(e) => setInputCity(e.target.value)}
+              onKeyPress={handleKeyPress}
+              disabled={loading}
+              style={{ marginBottom: "20px" }}
+            />
+            {error && (
+              <Typography variant="body2" color="error">
+                {error}
+              </Typography>
+            )}
             <MainWeatherWindow
               data={weatherData.days[0]}
               city={weatherData.city}

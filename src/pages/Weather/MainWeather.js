@@ -11,7 +11,7 @@ const MainWeatherWindow = (props) => {
         {Title}
           <img
             src={
-              !props.data
+              props.data
                 ? require(`./images/${props.data.icon}.png`)
                 : require("./images/01d.png")
             }
