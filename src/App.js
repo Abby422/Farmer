@@ -15,6 +15,7 @@ import theme from "./theme";
 import Employees from "./pages/Employees/employees";
 import AddEmployee from "./pages/Employees/addEmployee";
 import Financials from "./pages/financials/financials";
+import Weather from "./pages/Weather/weather";
 
 const isAuthenticated = () => {
   // Check if the user is logged in. You can modify this check based on your authentication logic.
@@ -83,6 +84,18 @@ function App() {
             element={
               <DashboardLayout>
                 <ViewCrops />
+              </DashboardLayout>
+            }
+          />
+        }
+      />
+      <Route
+        path="/weather"
+        element={
+          <PrivateRoute
+            element={
+              <DashboardLayout>
+                <Weather />
               </DashboardLayout>
             }
           />

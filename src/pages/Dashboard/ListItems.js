@@ -9,6 +9,8 @@ import InventoryIcon from "@mui/icons-material/Inventory";
 import { Link } from "react-router-dom";
 import { Add, ExpandLess, ExpandMore } from "@mui/icons-material";
 import { Collapse, List } from "@mui/material";
+import AcUnitIcon from "@mui/icons-material/AcUnit";
+
 
 export const MainListItems = () => {
   const [selectedIndex, setSelectedIndex] = React.useState(1);
@@ -42,6 +44,18 @@ export const MainListItems = () => {
           <Dashboard />
         </ListItemIcon>
         <ListItemText primary="Dashboard" />
+      </ListItemButton>
+      <ListItemButton
+        component={Link}
+        to="/weather"
+        selected={selectedIndex === 0}
+        color={color}
+        onClick={(e) => handleListItemClick(e, 0)}
+      >
+        <ListItemIcon>
+          <AcUnitIcon />
+        </ListItemIcon>
+        <ListItemText primary="Weather" />
       </ListItemButton>
       <ListItemButton
         component={Link}
