@@ -7,8 +7,8 @@ const MainWeatherWindow = (props) => {
   return (
     <div className="main">
       <div className="inner-main">
-        {Title}
         <div className="card">
+        {Title}
           <img
             src={
               !props.data
@@ -40,7 +40,6 @@ const MainWeatherWindow = (props) => {
           </div>
         </div>
       </div>
-      {props.children}
     </div>
   );
 };
